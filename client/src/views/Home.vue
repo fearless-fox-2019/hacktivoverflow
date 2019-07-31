@@ -2,37 +2,10 @@
   <div class="home">
     <!-- Card -->
       <b-row>
-        <b-col cols="2">
-          <b-card
-            title="Card Title"
-            img-src="https://picsum.photos/600/300/?image=25"
-            img-alt="Image"
-            img-top
-            tag="article"
-            style="max-width: 20rem;"
-            class="mb-2"
-          >
-            <b-card-text>
-              Welcome to a place where you can ask and answer questions about anything!
-            </b-card-text>
-          </b-card>
-           <b-card header="Posts">
-              <b-list-group>
-                <b-list-group-item href="#">Add Post</b-list-group-item>
-                <b-list-group-item href="#">Your Posts</b-list-group-item>
-                <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
-              </b-list-group>
-
-              <p class="card-text mt-2">
-                Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
-                consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
-                mollit voluptate est in duis laboris ad sit ipsum anim Lorem.
-              </p>
-            </b-card>
-        </b-col>
+        <SideNav v-if="$store.state.isLogin"></SideNav>
         <b-col cols="7">
           <!-- Card -->
-           <QuestionList></QuestionList>
+           <QuestionList v-for="question in questions" :key="question._id" :question="question"></QuestionList>
 <!-- Card -->
         </b-col>
         <b-col cols="3">
@@ -53,12 +26,48 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import QuestionList from '../components/QuestionLists'
-
+import SideNav from '../components/SideNav'
+import {mapState} from 'vuex'
 export default {
   name: 'home',
   components: {
     HelloWorld,
-    QuestionList
+    QuestionList,
+    SideNav
+  },
+ data() {
+    return {
+      upvoted: false,
+      downvoted: false
+    }
+  },
+  computed : { 
+    ...mapState(['questions'])
+  },
+  methods: {
+    getAll() {
+      this.$store.dispatch('getAllQuestions')
+    },
+    upVote() {
+      // console.log('asd')
+      // if(this.upvoted == false) {
+      //   this.upvoted = true
+      //   let userId = localStorage.getItem('id')
+      //   if(this.downvoted) {
+      //     this.downvoted = false
+      //   }
+      // } else {
+      //   this.upvoted = false
+      // }
+      // console.log(this.upvoted);
+      // // let found = this.questions.filter((question => {
+
+      // // }))
+    }
+    
+  },
+  created() {
+    this.getAll()
   }
 }
 </script>

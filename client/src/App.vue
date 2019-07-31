@@ -3,6 +3,7 @@
     <NavBar></NavBar>
     <LoginModal></LoginModal>
     <RegisterModal></RegisterModal>
+    <AddQuestion></AddQuestion>
 
     <b-container fluid style="background-color: #E8E8E8; min-height: 100vh">
     <router-view/>
@@ -16,11 +17,13 @@ import NavBar from './components/NavBar'
 // import LoginModal from './components/LoginModal'
 import LoginModal from './components/LoginModal'
 import RegisterModal from './components/Register'
+import AddQuestion from './components/AddQuestion'
 export default {
   components: {
     NavBar,
     LoginModal,
-    RegisterModal
+    RegisterModal,
+    AddQuestion
   },
   methods: {
     

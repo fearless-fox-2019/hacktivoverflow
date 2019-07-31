@@ -8,7 +8,7 @@ const questionSchema = new Schema({
   },
   content: {
     type: String,
-    required: [true,'description is required']
+    required: [true,'content is required']
   },
   userId: {
     type: Schema.Types.ObjectId,

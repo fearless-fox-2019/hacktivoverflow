@@ -50,6 +50,9 @@ export default {
     loginUser() {
       this.$store.dispatch('loginUser',this.login)
       this.hideModal()
+      this.$store.commit('WATCH_STYLING')
+      // this.count++
+      // this.$emit('styling',count)
     },
     hideModal() {
      this.$refs['my-modal'].hide()

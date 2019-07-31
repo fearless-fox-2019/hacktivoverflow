@@ -29,15 +29,21 @@ class AnswerController {
           }
           return dataFound.save()
         } else {
-          throw {status: 400, message: 'you cannot like the same thing twice '}
+          let index = dataFound.upVotes.findIndex((userId) => userId == req.decoded._id)
+          dataFound.upVotes.splice(index,1)
+          return dataFound.save()
         }
       })
       .then((dataUpdated) => {
         res.status(200).json(dataUpdated)
       })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   static downVote(req,res,next) {
+    // console.log('asd')
     Answer.findById(req.params.id)
     .then((dataFound) => {
       let found = dataFound.downVotes.filter(userId => userId == req.decoded._id)
@@ -49,18 +55,36 @@ class AnswerController {
         }
         return dataFound.save()
       } else {
-        throw {status: 400, message: 'you cannot like the same thing twice '}
+        let index = dataFound.downVotes.findIndex((userId) => userId == req.decoded._id)
+        dataFound.downVotes.splice(index,1)
+        return dataFound.save()
       }
     })
     .then((dataUpdated) => {
       res.status(200).json(dataUpdated)
     })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   static findAnswer(req,res,next) {
-    Answer.find({questionId: req.body.questionId})
+    Answer.find({questionId: req.params.questionId})
       .then(dataFound => {
         res.status(200).json(dataFound)
+      })
+      .catch(next)
+  }
+
+  static answerUpdate(req,res,next) {
+    Answer.findById(req.params.id)
+      .then((dataFound) => {
+        dataFound.title = req.body.title
+        dataFound.content = req.body.content
+        return dataFound.save()
+      })
+      .then((dataUpdated) => {
+        res.status(200).json(dataUpdated)
       })
       .catch(next)
   }

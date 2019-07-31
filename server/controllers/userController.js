@@ -58,7 +58,7 @@ class UserController {
                 if(userFound) {
                     if(comparePassword(password,userFound.password)) {
                         // console.log(userFound)
-                        let tokenJWT = createToken({username: userFound.username, email: userFound.email,_id: userFound._id}, process.env.JWT_SECRET)
+                        let tokenJWT = createToken({username: userFound.username, email: userFound.email,_id: userFound._id,username:userFound.username}, process.env.JWT_SECRET)
                         res.status(201).json({token: tokenJWT, username: userFound.username, email: userFound.email,id:userFound._id})
                     } else {
                         throw {status:404, message: 'username/password salah'}

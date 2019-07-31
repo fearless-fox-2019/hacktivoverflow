@@ -33,9 +33,10 @@ class QuestionController {
   }
 
   static upvote(req,res,next) {
+    // console.log(req.params.id);
     Question.findById(req.params.id)
       .then((dataFound) => {
-        // console.log(dataFound)
+        console.log(dataFound)
         let found = dataFound.upVotes.filter((userId) => userId == req.decoded._id)
         if(found.length == 0) {
           dataFound.upVotes.push(req.decoded._id)
@@ -46,7 +47,9 @@ class QuestionController {
           }
           return dataFound.save()
         } else {
-          throw {status: 400, message: 'cannot like the same thing twice'}
+          let index = dataFound.upVotes.findIndex((userId) => userId == req.decoded._id)
+          dataFound.upVotes.splice(index,1)
+          return dataFound.save()
         }
       })
       .then((dataUpdated) => {
@@ -73,12 +76,44 @@ class QuestionController {
           }
           return dataFound.save()
         } else {
-          throw {status: 400, message: 'cannot like the same thing twice'}
+          let index = dataFound.downVotes.findIndex((userId) => userId == req.decoded._id)
+          dataFound.downVotes.splice(index,1)
+          return dataFound.save()
         }
       })
       .then((dataUpdated) => {
         console.log(dataUpdated)
         res.status(200).json(dataUpdated)
+      })
+      .catch(next)
+  }
+
+  static questionDetail(req,res,next) {
+    Question.findById(req.params.id).populate('userId')
+      .then((dataFound) => {
+        res.status(200).json(dataFound)
+      })
+      .catch(next)
+  }
+
+  static questionUpdate(req,res,next) {
+    Question.findById(req.params.id)
+      .then((dataFound) => {
+        dataFound.title = req.body.title
+        dataFound.content = req.body.content
+        return dataFound.save()
+      })
+      .then((updatedData) => {
+        res.status(200).json(updatedData)
+      })
+      .catch(next)
+  }
+  
+  static delete(req,res,next) {
+    Question.findByIdAndDelete(req.params.id)
+      .then((dataFound) => {
+        // console.log('asd')
+        res.status(200).json(dataFound)
       })
       .catch(next)
   }

@@ -1,17 +1,17 @@
 const {verifyToken} = require('../helpers/jwt')
-const Questions = require('../models/questions')
+const Answer = require('../models/answers')
 
 function authorization(req,res,next) {
-    Questions.findById(req.params.id)
-        .then((Questions => {
-            if(Questions) {
-                if(Questions.userId == req.decoded._id) {
+    Answer.findById(req.params.id)
+        .then((Answer => {
+            if(Answer) {
+                if(Answer.userId == req.decoded._id) {
                     next()
                 } else {
                     throw {status:403, message:'Unauthorized'}
                 }
             } else {
-                throw {status:404, message: 'Questions not found'}
+                throw {status:404, message: 'Answer not found'}
             }
         }))
         .catch(next)
