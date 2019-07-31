@@ -1,0 +1,62 @@
+
+/* end */
+
+/* header */
+
+.custom-nav-container {
+  position:relative;
+  z-index: 1;
+}
+
+
+.main-nav-outer.open-menu {
+  right: 0;
+}
+
+.menu-close-icon {
+  position:absolute;
+  top: 5px;
+  left: 10px;
+}
+
+.main-nav .nav-link {
+  font-size:14px;
+  text-transform: uppercase;
+}
+
+.nav-icons-container {
+  width:100%;
+  max-width: 125px;
+}
+
+.custom-nav-container i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.nav-icons-container i:hover {
+  opacity: 0.5;
+}
+
+.navbar-brand i{
+  font-size: 40px;
+}
+
+.navbar-brand i span {
+  font-size: 20px;
+  font-weight: 100;
+  font-size: fantasy
+}
+
+.nav-icons > a {
+  position:relative
+}
+
+.nav-icons > a > .badge {
+  position:absolute;
+  top: -10px;
+  right: -16px;
+  background-color: purple;
+  color:black;
+  border-radius:100%;
+}
