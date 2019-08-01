@@ -148,6 +148,20 @@ export default new Vuex.Store({
           })
         })
     },
+    getAllQuestionsearch({commit}, payload){
+      console.log(payload, "triggered search");
+      axios({
+        method : `GET`,
+        url : `questions?search=${payload}`
+      })
+      .then(({data}) => {
+        commit('setAllQuestions', data)
+        router.push('/search')
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },
     login ({ commit, state }, payload) {
       console.log(payload, 'ini dari login')
 

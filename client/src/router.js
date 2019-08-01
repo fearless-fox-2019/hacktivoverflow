@@ -64,6 +64,11 @@ export default new Router({
       name : 'tags',
       component : () => import('./views/tags.vue')
     },
+    {
+      path : '/search',
+      name : 'search',
+      component : () => import('./views/searchPage.vue')
+    }
     
   ]
 })

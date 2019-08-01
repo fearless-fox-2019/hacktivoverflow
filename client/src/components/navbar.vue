@@ -7,7 +7,7 @@
         HacktivOverFlow
       </b-navbar-brand>
       </router-link>
-        <b-nav-form style="margin-left:10%" >
+        <b-nav-form style="margin-left:10%" @submit.prevent="searchQuestion" >
           <b-form-input size="sm" class="mr-sm-2" placeholder="Search" style="width:600px;" v-model="keyword"></b-form-input>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
@@ -47,16 +47,10 @@ export default {
       this.$router.push('/')
     },
     searchQuestion(){
-      axios({
-        method : `GET`,
-        url : `/questions?search=${this.keyword}`
-      })
-      .then(({data}) => {
-        this.$emit('question-search', data)
-      })
-      .catch(err => {
-
-      })
+      let keyword = this.keyword
+      console.log(keyword, "ini keywordddd cndjcjdcjds");
+      
+      this.$store.dispatch('getAllQuestionsearch', keyword)
     }
   }
   

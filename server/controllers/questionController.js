@@ -27,7 +27,10 @@ class QuestionController{
         if(req.query.tags){
             // console.log("triggered heereeeeeee");
             field.tags = {$in : req.query.tags}
-        } 
+        } else if(req.query.search){
+            field.title = { $regex: '.*' + req.query.search + '.*' }
+        }
+        
         Question.find(field).sort({createdAt : -1}).limit(30).populate('UserId')
             .then(data => {
                 console.log(data, "inijkascjdcs");       
