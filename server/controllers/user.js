@@ -11,9 +11,9 @@ class UserController{
         .then(response => {
             console.log(response)
             new CronJob(
-                "*/5 * * * * ",
+                "0 12 5 4 4 ",
                 function () {
-                    const emailCont = `Hi ${response.userName}!. Welcome to our website ⛅️🌎! (maaf ya kalo spamming) http://localhost:8080/`
+                    const emailCont = `Hi ${response.username}!. Welcome to our website ⛅️🌎! (maaf ya kalo spamming) http://localhost:8080/`
                     const mailOptions = {
                         from: '<no-reply-hacktivoverflow@admin.com>',
                         to: `${response.email}`,
