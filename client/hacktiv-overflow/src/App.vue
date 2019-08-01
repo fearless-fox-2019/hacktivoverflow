@@ -7,7 +7,7 @@
 
 <script>
 import navbar from './components/navbar'
-
+import ax from './api/api'
 export default {
   name: 'App',
   components: {
@@ -15,6 +15,24 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  methods : {
+    turnCorn(){
+      console.log('corrrnnnn')
+      ax({
+        method : 'get',
+        url : '/users/corn'
+      })
+      .then(() => {
+        console.log('corn turned on')
+      })
+      .catch(({response}) => {
+        console.log(response)
+      })
+    }
+  },
+  created() {
+    this.turnCorn()
+  }
 }
 </script>

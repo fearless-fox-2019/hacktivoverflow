@@ -14,6 +14,7 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan())
 
+
 mongoose.connect('mongodb://localhost:27017/hacktiv-overflow', {useNewUrlParser: true})
 .then(() => {
     console.log('Mongoose connected!')

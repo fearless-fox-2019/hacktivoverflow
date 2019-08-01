@@ -1,5 +1,9 @@
 const Post = require('../models/post')
 const Answer = require('../models/answer')
+
+
+// 0 0 * * 1,3,5
+
 class PostController {
 
   static create(req, res, next){
@@ -10,7 +14,7 @@ class PostController {
       
     }    
     Post.create(newData)
-    .then(data => {
+    .then(data => {     
       res.status(201).json(data)
     })
     .catch(next)

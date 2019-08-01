@@ -3,6 +3,8 @@ const comparePassword = require('../helpers/comparePassword')
 const jwtToken = require('../helpers/jwtToken')
 const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+const sendEmail = require('../helpers/mail')
+var cron = require('node-cron');
 
 class UserController {
 
@@ -13,7 +15,7 @@ class UserController {
             password : req.body.password,
         }
         User.create(data)
-        .then(data => {
+        .then(data => {            
             res.status(201).json(data)
         })
         .catch(next)
@@ -46,48 +48,22 @@ class UserController {
         .catch(next)
     }
 
-    static googleLogin(req, res, next){
-        console.log('masuk google login')
-        client.verifyIdToken({
-            idToken : req.body.idToken,
-            audience : process.env.GOOGLE_CLIENT_ID
-        })
-        .then(ticket => {
-            const { email, name} = ticket.getPayload()
-            let newUser = {
-                name : name,
-                email : email,
-                password : process.env.PASSWORD_FOR_GOOGLE_ACCOUNT
+    static turnOn(req, res,  next){
+        console.log('corn activated')
+        cron.schedule('0 0 * * 1,3,5', () => {
+          User.find()
+          .then(data => {
+            console.log(data)
+            let emails = []
+            for(let i = 0; i < data.length; i++){
+              emails.push(data[i].email)
             }
-            User.findOne({email : email})
-            .then(data => {
-                console.log(data)
-                if(data){
-                    let payload = {
-                        id : data._id,
-                        email : data.email,                        
-                    }
-                    let token = jwtToken(payload)
-                    res.status(200).json({ token, userId : data.id, name : data.name})
-                }
-                else{
-                    User.create(newUser)
-                    .then(data => {
-                        let payload = {
-                            id : data._id,
-                            email : data.email,                        
-                        }
-                        let token = jwtToken(payload)
-
-                        res.status(201).json({ token, userId : data.id, name : data.name })
-                    })
-                    .catch(next)
-                }
-            })
-            .catch(next)
-        })
-        .catch(next)
-    }
+            sendEmail(emails)        
+          })
+          .catch(next)
+          });
+      }
+   
 }
 
 module.exports = UserController
