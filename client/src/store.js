@@ -3,18 +3,17 @@ import Vuex from 'vuex'
 import axios from 'axios'
 Vue.use(Vuex)
 
-function sortUpvote(a, b) {
-  if(a.upvote.length < b.upvote.length) {
+function sortUpvote (a, b) {
+  if (a.upvote.length < b.upvote.length) {
     return 1
   }
-  if(a.upvote.length > b.upvote.length) {
+  if (a.upvote.length > b.upvote.length) {
     return -1
   }
   return 0
 }
 
-
-const api = 'http://localhost:3000/api/'
+const api = 'http://3.0.98.71/api/'
 export default new Vuex.Store({
   state: {
     questions: [],
@@ -22,9 +21,9 @@ export default new Vuex.Store({
     isLogin: '',
     loggedUser: {},
     detailedQuestion: {},
-    tags : [],
-    watchTags : [],
-    stack : []
+    tags: [],
+    watchTags: [],
+    stack: []
   },
   mutations: {
     STOREDETAIL (state, payload) {
@@ -53,11 +52,11 @@ export default new Vuex.Store({
     STOREANSWERS (state, payload) {
       state.answers = payload
     },
-    STORETAGS (state, payload )  {
+    STORETAGS (state, payload) {
       state.tags = payload
     },
-    PUSHWATCHTAGS (state, payload ) {
-      if(!state.watchTags.includes(payload)) state.watchTags.push(payload)
+    PUSHWATCHTAGS (state, payload) {
+      if (!state.watchTags.includes(payload)) state.watchTags.push(payload)
     },
     CLEARWATCHTAGS (state, payload) {
       state.watchTags = []
@@ -201,27 +200,27 @@ export default new Vuex.Store({
         method: 'GET',
         url: `${api}tags`
       })
-      .then(({data}) => {
-        commit('STORETAGS', data)
-      })
-      .catch(err => {
-        console.log(err.response.data)
-      })
+        .then(({ data }) => {
+          commit('STORETAGS', data)
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
     },
-    fetchCron ({ state, commit}, payload) {
+    fetchCron ({ state, commit }, payload) {
       axios({
         url: `${api}cron`,
         method: 'GET'
       })
-      .then(({data}) => {
-        commit('STORECRON', data)
-      })
-      .catch(err => {
-        console.log(err.response)
-      })
+        .then(({ data }) => {
+          commit('STORECRON', data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     }
   },
-  getters : {
+  getters: {
     top: (state, getters) => (payload) => {
       let arr = []
       state.questions.forEach(el => {
@@ -232,16 +231,16 @@ export default new Vuex.Store({
       top.forEach(x => {
         x.createdAt = new Date(x.createdAt).toLocaleString()
       })
- 
+
       return top
     },
-    new : (state, getters) => (payload) => {
+    new: (state, getters) => (payload) => {
       let arr = []
       state.questions.forEach(el => {
         arr.push(el)
       })
       let questions = payload === 'all' ? arr : getters.myQuestion
-      let sortNew = questions.sort((a, b) => new Date (b.createdAt) - new Date(a.createdAt))
+      let sortNew = questions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       sortNew.forEach(x => {
         x.createdAt = new Date(x.createdAt).toLocaleString()
       })
@@ -256,6 +255,6 @@ export default new Vuex.Store({
         }
       })
       return arr
-    },
+    }
   }
 })

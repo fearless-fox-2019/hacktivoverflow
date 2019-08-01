@@ -19,20 +19,20 @@
 </template>
 <script>
 import PopularQuestion from '@/components/PopularQuestion.vue'
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'sideContent',
-  computed : {
-    posts() {
+  computed: {
+    posts () {
       return this.$store.getters.top('all').slice(0, 4)
     },
     ...mapState(['watchTags', 'stack'])
   },
-  components : {
+  components: {
     PopularQuestion
   },
-  methods : {
-    clear() {
+  methods: {
+    clear () {
       this.$store.commit('CLEARWATCHTAGS')
     }
   }

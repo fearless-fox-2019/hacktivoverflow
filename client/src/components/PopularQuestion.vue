@@ -6,7 +6,7 @@
         <b-icon
           pack="fas"
           icon="arrow-up"
-          class="arrow" 
+          class="arrow"
           >
         </b-icon>
         <p>{{post.score}}</p>
@@ -19,12 +19,12 @@
 export default {
   name: 'popularPost',
   props: ['post'],
-  methods : {
+  methods: {
     toDetail () {
-      window.open(this.post.link, "_blank");  
+      window.open(this.post.link, '_blank')
     }
   },
-  data() {
+  data () {
     return {
 
     }
@@ -54,7 +54,7 @@ export default {
 }
 
 #popular-post:hover{
-  cursor: pointer;		
+  cursor: pointer;
   background-color: rgba(49, 27, 146, 0.082);
 }
 
@@ -62,7 +62,6 @@ export default {
   display: flex;
   /* justify-content: space-evenly; */
 }
-
 
 .arrow {
   margin-right: 5px;

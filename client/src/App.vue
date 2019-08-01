@@ -6,7 +6,7 @@
         <router-link class="link" to="/">Home</router-link>
         <router-link class="link" to="/submit">Ask a question</router-link>
       </div>
-      
+
       <div id="nav-login-register" class="second-item" v-if="!isLogin">
         <router-link class="link" to="/login">Login</router-link>
         <router-link class="link" to="/register">Register</router-link>
@@ -62,9 +62,9 @@ export default {
   }
   .landing-bg {
     background-image: url('https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/online_discussion_5wgl.svg');
-    
+
     padding: 100px;
-    
+
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: 50em;
@@ -73,9 +73,9 @@ export default {
 
   .submit-page {
     background-image: url('https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/update_uxn2.svg');
-    
+
     padding: 100px;
-    
+
     background-size: 40%;
     background-repeat: repeat-x;
     background-position: 8%;

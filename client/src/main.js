@@ -12,7 +12,7 @@ import { faCheck, faCheckCircle, faInfoCircle, faExclamationTriangle, faExclamat
   faEye, faEyeSlash, faCaretDown, faCaretUp, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
-Vue.use(require('vue-moment'));
+Vue.use(require('vue-moment'))
 
 library.add(faCheck, faCheckCircle, faInfoCircle, faExclamationTriangle, faExclamationCircle,
   faArrowUp, faAngleRight, faAngleLeft, faAngleDown,

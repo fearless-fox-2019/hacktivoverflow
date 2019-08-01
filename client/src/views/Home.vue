@@ -55,10 +55,10 @@ export default {
       isLoading: true,
       searchInput: '',
       questionState: 'all',
-      sortState : localStorage.getItem('sort') || 'new',
-      questions : [], 
-      sortOption : ['top', 'new'],
-      openTag : false
+      sortState: localStorage.getItem('sort') || 'new',
+      questions: [],
+      sortOption: ['top', 'new'],
+      openTag: false
     }
   },
   components: {
@@ -67,11 +67,11 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchQuestions')
-    .then(({ data }) => {
-      this.$store.commit('STOREQUESTIONS', data)
-      !localStorage.getItem('sort') ? localStorage.setItem('sort', 'new') : ''
-      this.isLoading = false
-    })
+      .then(({ data }) => {
+        this.$store.commit('STOREQUESTIONS', data)
+        !localStorage.getItem('sort') ? localStorage.setItem('sort', 'new') : ''
+        this.isLoading = false
+      })
     this.$store.dispatch('fetchTags')
   },
   computed: {
@@ -79,11 +79,11 @@ export default {
       let sort = this.sortState
       let watch = this.watchTags
       this.questions = this.$store.getters[sort](this.questionState)
-      if(watch.length > 0 ) {
+      if (watch.length > 0) {
         this.questions = this.questions.filter(question => {
           let found = false
-          for(let i = 0; i < watch.length; i++ ) {
-            if(question.tags.filter(tag => tag.name == watch[i]).length > 0) {
+          for (let i = 0; i < watch.length; i++) {
+            if (question.tags.filter(tag => tag.name == watch[i]).length > 0) {
               found = true
             }
           }
@@ -115,20 +115,20 @@ export default {
           this.questionState = 'all'
         })
     },
-    watchTag(name) {
+    watchTag (name) {
       this.$store.commit('PUSHWATCHTAGS', name)
     },
-    open() {
-      this.openTag = this.openTag ? false : true
+    open () {
+      this.openTag = !this.openTag
     }
   },
-   watch : {
-    isLogin() {
-      if(!this.isLogin) {
+  watch: {
+    isLogin () {
+      if (!this.isLogin) {
         this.questionState = 'all'
       }
     },
-    sortState() {
+    sortState () {
       localStorage.setItem('sort', this.sortState)
     }
   }
@@ -142,7 +142,7 @@ export default {
     justify-content: center;
     margin-top: 10px;
   }
-  
+
   .bg-sidebar {
     background-image: url('https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/newspaper_k72w.svg');
     background-size: 50%;
@@ -214,9 +214,11 @@ export default {
     padding: 15px;
     border-radius: 15px;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .tag-item {
+    margin: 10px;
     margin-left: 10px;
     color: white;
     background-color: #311B92;

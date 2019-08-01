@@ -161,16 +161,16 @@ export default {
           })
       }
     },
-    watchTag(name) {
+    watchTag (name) {
       this.$store.commit('PUSHWATCHTAGS', name)
     }
   },
   components: {
 
   },
-   watch : {
-    isLogin() {
-      if(!this.isLogin) {
+  watch: {
+    isLogin () {
+      if (!this.isLogin) {
         this.upvoted = false
         this.downvoted = false
       }

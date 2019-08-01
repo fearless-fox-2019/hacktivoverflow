@@ -43,15 +43,15 @@ export default {
         title: '',
         content: ''
       },
-      inputTags : [],
-      filteredTags : this.tags
+      inputTags: [],
+      filteredTags: this.tags
     }
   },
   methods: {
     addQuestion () {
       let newTag = []
       this.inputTags.forEach(tag => {
-        if(tag.name != undefined) {
+        if (tag.name != undefined) {
           newTag.push(tag.name)
         } else {
           newTag.push(tag)

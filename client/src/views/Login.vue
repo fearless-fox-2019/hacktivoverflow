@@ -51,9 +51,8 @@ export default {
           this.$store.commit('INPUTLOGGEDUSER', data.payload)
           this.$toast.open({ message: 'You logged in!', type: 'is-success' })
           this.$router.push('/')
-          
         })
-        
+
         .catch(err => {
           this.error = err.response.data.message
         })
@@ -96,7 +95,7 @@ export default {
     /* height: 400px; */
     padding: 25px 8px;
     margin: 90px 0;
-    
+
     /* border: 1px solid #37474F; */
   }
   .text-input {
