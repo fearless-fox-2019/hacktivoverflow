@@ -10,8 +10,8 @@ router.post('/',QuestionController.create)
 router.get('/',QuestionController.getQuestionByUser)
 router.patch('/upVote/:id',QuestionController.upvote)
 router.patch('/downVote/:id',QuestionController.downvote)
-router.patch('/:id',QuestionController.questionUpdate)
-router.delete('/:id',QuestionController.delete)
+router.patch('/:id',authorization,QuestionController.questionUpdate)
+router.delete('/:id',authorization,QuestionController.delete)
 
 
 module.exports = router

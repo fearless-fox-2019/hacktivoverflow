@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from  'axios'
 import VueSweetalert2 from 'vue-sweetalert2'
 import route from './router'
-const baseUrl = `http://localhost:3000/api`
+const baseUrl = `http://35.240.152.123/api`
 
 Vue.use(Vuex)
 Vue.use(VueSweetalert2);

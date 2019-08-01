@@ -66,7 +66,7 @@ import {mapState} from 'vuex'
 import AnswerList from '../components/AnswerList'
 import UpdateForm from '../components/updateForm'
 import updateAnswer  from '../components/updateAnswer'
-const baseUrl = `http://localhost:3000/api`
+const baseUrl = `http://35.240.152.123/api`
 
 import axios from 'axios'
 
