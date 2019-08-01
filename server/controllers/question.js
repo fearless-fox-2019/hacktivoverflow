@@ -20,7 +20,7 @@ class QuestionController {
         }else{
             sort.createdAt = -1
         }
-        console.log(sort);
+        console.log(obj);
 
         Question.find(obj).populate('user_id').sort(sort)
             .then((data) => {

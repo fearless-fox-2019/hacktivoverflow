@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="eQuestion text-left">
-          <a-tabs defaultActiveKey="2">
+          <a-tabs defaultActiveKey="1">
     <a-tab-pane key="1">
       <span slot="tab">
         <a-icon type="global" />
