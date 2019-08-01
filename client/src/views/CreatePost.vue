@@ -26,7 +26,8 @@
 </template>
 
 <script>
-const baseUrl = `http://localhost:3000`
+// const baseUrl = `http://localhost:3000`
+const baseUrl = `http://35.240.247.85/`
 import Editor from '@tinymce/tinymce-vue'
 
 export default {
