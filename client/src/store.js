@@ -83,7 +83,7 @@ export default new Vuex.Store({
     signIn(context, payload) {
       axios({
           method: "POST",
-          url: `http://localhost:3000/users/signin`,
+          url: `http://13.250.47.26:3000/users/signin`,
           data: payload
       })      
       .then(({data}) => {
@@ -113,7 +113,7 @@ export default new Vuex.Store({
     signUp(context, payload) {
       axios({
         method: "POST",
-        url: `http://localhost:3000/users/signup`,
+        url: `http://13.250.47.26:3000/users/signup`,
         data: payload,
       })   
       .then(({data}) => {
@@ -137,7 +137,7 @@ export default new Vuex.Store({
     watchTag(context, payload) {
       axios({
         method: "PATCH",
-        url: `http://localhost:3000/users/savetag`,
+        url: `http://13.250.47.26:3000/users/savetag`,
         data: { tag: payload },
         headers: {
           'access_token': localStorage.getItem('access_token')
@@ -162,7 +162,7 @@ export default new Vuex.Store({
     userTag(context) {
       axios({
         method: "GET",
-        url: `http://localhost:3000/users`,
+        url: `http://13.250.47.26:3000/users`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }
@@ -188,7 +188,7 @@ export default new Vuex.Store({
         if (result.value) {
           axios({
             method: "PATCH",
-            url: `http://localhost:3000/users/deletetag`,
+            url: `http://13.250.47.26:3000/users/deletetag`,
             data: { 'index': payload },
             headers: {
               'access_token': localStorage.getItem('access_token')
@@ -221,7 +221,7 @@ export default new Vuex.Store({
       payload.tags = [...new Set(payload.tags)]
       axios({
         method: "POST",
-        url: `http://localhost:3000/posts`,
+        url: `http://13.250.47.26:3000/posts`,
         data: payload,
         headers: {
           'access_token': localStorage.getItem('access_token')
@@ -248,7 +248,7 @@ export default new Vuex.Store({
     retrievePosts({commit}) {
       axios({
         method: "GET",
-        url: `http://localhost:3000/posts`,
+        url: `http://13.250.47.26:3000/posts`,
       })   
       .then(({data}) => {
         commit('retrievePosts', data)
@@ -261,7 +261,7 @@ export default new Vuex.Store({
     retrieveMyPosts({commit}) {
       axios({
         method: "GET",
-        url: `http://localhost:3000/posts/userId`,
+        url: `http://13.250.47.26:3000/posts/userId`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }
@@ -292,7 +292,7 @@ export default new Vuex.Store({
           if (result.value) {
             axios({
               method: "PUT",
-              url: `http://localhost:3000/posts/${payload.post._id}`,
+              url: `http://13.250.47.26:3000/posts/${payload.post._id}`,
               data: payload.post,
               headers: {
                 'access_token': localStorage.getItem('access_token')
@@ -332,7 +332,7 @@ export default new Vuex.Store({
           if (result.value) {
             axios({
               method: "PUT",
-              url: `http://localhost:3000/comments/${payload.post._id}`,
+              url: `http://13.250.47.26:3000/comments/${payload.post._id}`,
               data: payload.post,
               headers: {
                 'access_token': localStorage.getItem('access_token')
@@ -373,7 +373,7 @@ export default new Vuex.Store({
         if (result.value) {
           axios({
             method: "DELETE",
-            url: `http://localhost:3000/posts/${payload}`,
+            url: `http://13.250.47.26:3000/posts/${payload}`,
             headers: {
               'access_token': localStorage.getItem('access_token')
             }
@@ -403,7 +403,7 @@ export default new Vuex.Store({
     upvotePost(context, payload) {
       return axios({
         method: "PUT",
-        url: `http://localhost:3000/posts/upvotes/${payload}`,
+        url: `http://13.250.47.26:3000/posts/upvotes/${payload}`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }
@@ -419,7 +419,7 @@ export default new Vuex.Store({
     downvotePost(context, payload) {
       axios({
         method: "PUT",
-        url: `http://localhost:3000/posts/downvotes/${payload}`,
+        url: `http://13.250.47.26:3000/posts/downvotes/${payload}`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }
@@ -435,7 +435,7 @@ export default new Vuex.Store({
     newComment(context, payload) {
       axios({
         method: "POST",
-        url: `http://localhost:3000/comments`,
+        url: `http://13.250.47.26:3000/comments`,
         data: payload,
         headers: {
           'access_token': localStorage.getItem('access_token')
@@ -448,7 +448,7 @@ export default new Vuex.Store({
         }
         axios({
           method: "PUT",
-          url: `http://localhost:3000/posts/addcomment/${idPost}`,
+          url: `http://13.250.47.26:3000/posts/addcomment/${idPost}`,
           data: obj,
           headers: {
             'access_token': localStorage.getItem('access_token')
@@ -478,7 +478,7 @@ export default new Vuex.Store({
     retrieveCommentByPostId(context, payload) {
       axios({
         method: "GET",
-        url: `http://localhost:3000/comments/postId/${payload}`,
+        url: `http://13.250.47.26:3000/comments/postId/${payload}`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }
@@ -493,7 +493,7 @@ export default new Vuex.Store({
     upvoteComment(context, payload) {
       axios({
         method: "PUT",
-        url: `http://localhost:3000/comments/upvotes/${payload}`,
+        url: `http://13.250.47.26:3000/comments/upvotes/${payload}`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }
@@ -508,7 +508,7 @@ export default new Vuex.Store({
     downvoteComment(context, payload) {
       axios({
         method: "PUT",
-        url: `http://localhost:3000/comments/downvotes/${payload}`,
+        url: `http://13.250.47.26:3000/comments/downvotes/${payload}`,
         headers: {
           'access_token': localStorage.getItem('access_token')
         }

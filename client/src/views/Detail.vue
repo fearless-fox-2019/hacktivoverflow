@@ -64,7 +64,7 @@ export default {
         retrievePostById (idPost) {
             axios({
                 method: "GET",
-                url: `http://localhost:3000/posts/id/${idPost}`,
+                url: `http://13.250.47.26:3000/posts/id/${idPost}`,
                 headers: {
                     'access_token': localStorage.getItem('access_token')
                 }
