@@ -12,7 +12,7 @@ Routes | HTTP | Body | Description | Error Response  |
 /api/users/confirmaton/:token | GET | token and email user | Confirmation email verification
 
 
-### Product
+### Questions
 
 Routes | HTTP | Body | Description | Error Response  | Middlewares
 ------ | ----- | ----- | -------- | -------- | ---
