@@ -21,7 +21,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import FormRegister from '@/components/FormRegister.vue'
 import Post from '@/components/Post.vue'
 // const baseUrl = `http://localhost:3000`
-const baseUrl = `http://35.240.247.85/`
+const baseUrl = `http://35.240.247.85`
 
 export default {
   name: 'home',

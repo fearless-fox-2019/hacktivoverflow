@@ -46,7 +46,7 @@
 
 <script>
 // const baseUrl = `http://localhost:3000`
-const baseUrl = `http://35.240.247.85/`
+const baseUrl = `http://35.240.247.85`
 
 export default {
   props: ["detailPost"],
