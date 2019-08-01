@@ -81,6 +81,7 @@ class userController{
 
 
      static loginGoogle(req, res, next){
+        
             client
             .verifyIdToken({
                 idToken: req.body.idToken,
