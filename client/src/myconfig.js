@@ -1,5 +1,5 @@
 import axios from "axios";
 let instance = axios.create({
-  baseURL: "http://localhost:3000/api/"
+  baseURL: "http://34.87.53.206/api/"
 });
 export default instance
