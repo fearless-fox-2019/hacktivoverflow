@@ -44,7 +44,8 @@ let userSchema = new Schema({
         minlength: [6, `password too short`]
     },
     watchTag: [{
-        type: Schema.Types.ObjectId,
+        // type: Schema.Types.ObjectId,
+        type: String,
         ref: 'Tag',
         default: []
     }],

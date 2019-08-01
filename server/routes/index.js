@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const userRoute = require('./userRoute')
-const questionRoute = require('./answerRoute')
+const questionRoute = require('./questionRoute')
 const answerRoute = require('./answerRoute')
 const tagRoute = require('./tagRoute')
 

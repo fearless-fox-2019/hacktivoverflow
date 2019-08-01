@@ -8,9 +8,13 @@ let tagSchema = new Schema({
     },
     watcher: [{
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        default:[]
     }],
-    description: String
+    description: {
+        type: String,
+        default: ''
+    }
 })
 
 let Tag = mongoose.model('Tag',tagSchema)

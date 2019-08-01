@@ -11,25 +11,38 @@ let questionSchema = new Schema ({
         required: [true, 'question content cannot be empty']
     },
     upVote: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        default: []
     }],
     downVote: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User',
+        default: []
     }],
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, `required user id to create questions`]
     },
     answers: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Answer',
+        default: []
     }],
     tags: [{
         type: String,
-        ref: 'Tag'
-    }]
+        ref: 'Tag',
+        default: []
+    }],
+    solved: {
+        type: Boolean,
+        default: false
+    },
+    totalVote: {
+        type: String,
+        default: 0,
+    }
 },{
     timestamps: true
 })
