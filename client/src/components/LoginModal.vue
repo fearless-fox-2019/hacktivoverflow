@@ -4,6 +4,7 @@
       id="loginForm"
       title="Login Form"
       ref="my-modal"
+      hide-footer
     >
       <form ref="form">
         <b-form-group

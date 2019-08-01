@@ -17,7 +17,7 @@ class QuestionController {
   }
 
   static getAllQuestions(req,res,next) {
-    Question.find().populate('userId').populate('answerId')
+    Question.find().populate('userId').populate('answerId').sort({'createdAt': 'desc'})
       .then((dataFound) => {
         res.status(200).json(dataFound)
       })
@@ -116,6 +116,31 @@ class QuestionController {
         res.status(200).json(dataFound)
       })
       .catch(next)
+  }
+
+  static findHighestVote(req,res,next) {
+    // console.log('masudk gnak')
+    Question.aggregate(
+      [
+          { "$project": {
+              "title": 1,
+              "content": 1,
+              "userId": 1,
+              "answerId": 1,
+              "upVotes": 1,
+              "downVotes": 1,
+              "length": { "$size": "$upVotes" }
+          }},
+          { "$sort": { "length": -1 } },
+          { "$limit": 3 }
+      ],
+      function(err,results) {
+        if(err) {
+          console.log(err)
+        } else {
+          res.status(200).json(results)
+        }
+      })
   }
 }
 

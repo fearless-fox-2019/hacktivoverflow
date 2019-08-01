@@ -24,6 +24,11 @@
         <!-- Text -->
         <p class="card-text"> {{question.content}}</p>
         <p class="card-text">Created by: {{question.userId.username}}</p>
+        <p class="card-text">
+          {{timestamp}}
+          </p>
+
+          
         <!-- {{getUSerId}} -->
         <!-- Button -->
         <span class="count-icon">
@@ -42,6 +47,7 @@
 
 <script>
 import  {mapState} from 'vuex'
+import moment from 'moment'
 export default {
   data() {
     return {
@@ -60,6 +66,11 @@ export default {
     },
     getLoginTrue() {
       return this.$store.getters.getLoginTrue
+    }
+  },
+  computed: {
+    timestamp: function () {
+      return moment(this.question.createdAt).format('YYYY-MM-DD [at] hh:mm')
     }
   },
   methods: {

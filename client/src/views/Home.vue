@@ -9,13 +9,19 @@
 <!-- Card -->
         </b-col>
         <b-col cols="3">
+          
           <h2 class="text-center">Post of the day</h2>
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title"> Card Title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-            </div>
+           <div class="card" style="background-color:#DCDCDC" v-for="highestVote in  highestVotes" :key="highestVote._id">
+             <!-- <b-row></b-row> -->
+              <b-col cols="12">
+                <div class="card-body">
+                  <h4 class="card-title"> {{highestVote.title}}</h4>
+                  <p class="card-text">{{highestVote.content}}</p>
+                  <!-- <p class="card-text"> {{highestVote.userId}}</p> -->
+                </div>
+              </b-col>
           </div>
+         
         </b-col>
       </b-row>
 <!-- Card -->
@@ -42,11 +48,14 @@ export default {
     }
   },
   computed : { 
-    ...mapState(['questions'])
+    ...mapState(['questions', 'highestVotes'])
   },
   methods: {
     getAll() {
       this.$store.dispatch('getAllQuestions')
+    },
+    getHighestVote() {
+      this.$store.dispatch('getHighestVote')
     },
     upVote() {
       // console.log('asd')
@@ -68,6 +77,7 @@ export default {
   },
   created() {
     this.getAll()
+    this.getHighestVote()
   }
 }
 </script>

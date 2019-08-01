@@ -19,7 +19,8 @@ export default new Vuex.Store({
     downvoted: false,
     userId: '',
     commentId: '',
-    commentUpdated: ''
+    commentUpdated: '',
+    highestVotes: []
   },
   getters: {
     getUserId(state) {
@@ -69,6 +70,9 @@ export default new Vuex.Store({
     },
     UPDATED_COMMENT(state,payload) {
       state.commentUpdated = payload
+    },
+    HIGHEST_VOTE(state,payload) {
+      state.highestVotes = payload
     }
   },
   actions: {
@@ -89,7 +93,12 @@ export default new Vuex.Store({
           // console.log(userRegistered)
         })
         .catch(error => {
-          console.log(error)
+          Vue.swal({
+            type:'error',
+            text: `${error.response.data.message}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     },
     loginUser(context,payload) {
@@ -198,7 +207,13 @@ export default new Vuex.Store({
           context.commit('ADD_COMMENTS',data)
         })
         .catch((error) => {
-          console.log(error)
+          Vue.swal({
+            type: 'error',
+            text: `${error.response.data.message}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+          // console.log(error)
         })
     },
     commentsByUser(context,payload) {
@@ -246,6 +261,16 @@ export default new Vuex.Store({
         .then((deleted) => {
           route.push('/')
           console.log(deleted)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getHighestVote(context,payload) {
+      axios.get(`${baseUrl}/questions/highestVote`)
+        .then(({data}) => {
+          context.commit('HIGHEST_VOTE',data)
+          console.log(data)
         })
         .catch((error) => {
           console.log(error)

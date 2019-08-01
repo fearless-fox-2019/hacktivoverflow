@@ -1,5 +1,5 @@
 <template>
-  <div style='border: 2px solid blue; min-height: 100vh;'>
+  <div style='min-height: 100vh;'>
     <NavBar></NavBar>
     <LoginModal></LoginModal>
     <RegisterModal></RegisterModal>

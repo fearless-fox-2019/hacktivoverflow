@@ -3,9 +3,15 @@ const {comparePassword} = require('../helpers/bcryptPassword')
 const {createToken} = require('../helpers/jwt')
 const {verifyToken} = require('../helpers/jwt')
 // const {OAuth2Client} = require('google-auth-library');
-// const transporter = require('../helpers/nodeMailer')
+const transporter = require('../helpers/nodeMailer')
 // const client = new OAuth2Client(process.env.CLIENT_ID);
 const jwt = require('jsonwebtoken')
+// const cron = require('cron')
+const cron = require('node-cron');
+
+
+
+// job.start();
 
 let payload
 
@@ -24,6 +30,20 @@ class UserController {
         // console.log(input);
         User.create(input)
             .then((dataCreated) => {
+                const url = `http://instromFlow.tommysutjipto.com`
+                cron.schedule('0 0 */5 * *', () => {
+                    transporter.sendMail({
+                        to: req.body.email,
+                        subject: 'Check out our latest post at instromFlow.com',
+                        html: `Check out our latest post at our website: <a href="http://instromFlow.tommysutjipto.com">Click here!</a>`
+                    },(err,resolve) => {
+                        if(err) {
+                            throw {status: 500, message:'internal server error'}
+                        } else {
+                            console.log('email sent')
+                        }
+                    })
+                });
                 // console.log(dataCreated)
               res.status(201).json(dataCreated)
             })
@@ -109,9 +129,7 @@ class UserController {
         })
         .catch(next)
         // console.log(ticket)
-
     }
-
 
 }
 

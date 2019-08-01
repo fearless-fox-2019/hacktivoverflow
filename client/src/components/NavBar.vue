@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
       <div class="custom-nav-container d-flex align-items-center  justify-content-between px-2  py-3 shadow-sm">
-      <a class="text-clipped navbar-brand" href="/">
+      <a class="text-clipped navbar-brand" >
         <img src="../assets/images/instrom.png" alt="logo" style="width: 100px; height: 100px;">
           <!-- <i class="fas fa-shoe-prints d-flex">
               <span class="m-auto">Hacktiv8</span>
@@ -46,11 +46,6 @@
                   </i>
                   </router-link>
               </a>
-          </div>
-          <div class="nav-icons ">
-            <a class="text-clipped">
-                <i class="fal fa-shopping-bag  bag-item-count text-clipped" ></i>
-            </a>
           </div>
           <div class="nav-icons">
               <a class="text-clipped">

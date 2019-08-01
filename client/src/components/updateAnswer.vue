@@ -69,7 +69,12 @@ export default {
           this.hideModal()
         })
         .catch((error) => {
-          console.log(error)
+           this.$swal({
+            type: 'error',
+            text: `${error.response.data.message}`,
+            showConfirmButton:  false,
+            timer: 1500
+          })
         })
     },
      hideModal() {
