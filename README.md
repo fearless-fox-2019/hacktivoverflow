@@ -221,7 +221,7 @@ array of object
 status code : 400
 
     {
-        "message":"Article validation failed: title: Path `title` is required., content: Path `content` is required."
+        "message":"Question validation failed: title: Path `title` is required., description: Path `description` is required."
     }
 
 
