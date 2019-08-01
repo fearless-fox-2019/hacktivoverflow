@@ -1,0 +1,120 @@
+<template>
+    <div style="padding-top: 50px;">
+        <h3>Question Of The Day</h3>
+        <div class="card example-1 scrollbar-ripe-malinka">
+            <div class="card-body">
+                <b-row v-for="(item, index) in datas" :key="index">
+                    <h5 @click="toDetail(item._id)">{{item.title}} </h5>
+                    <hr>
+                    <b>author:</b>  {{item.UserId.username}}
+                    <b>Viewers:</b>  {{item.views.length}}
+                </b-row>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    props: ['datas'],
+    data(){
+        return{}
+    },
+    methods:{
+        toDetail(id){
+            this.$store.dispatch('getQuestionById', id)
+            this.$router.push('/detail/'+id)
+        }
+    }
+
+
+}
+</script>
+
+<style scoped>
+.scrollbar-deep-purple::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-deep-purple::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-deep-purple::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #512da8; }
+
+.scrollbar-cyan::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-cyan::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-cyan::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #00bcd4; }
+
+.scrollbar-dusty-grass::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-dusty-grass::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-dusty-grass::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-image: -webkit-linear-gradient(330deg, #d4fc79 0%, #96e6a1 100%);
+background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
+
+.scrollbar-ripe-malinka::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-ripe-malinka::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-image: -webkit-linear-gradient(330deg, #f093fb 0%, #f5576c 100%);
+background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); }
+
+.bordered-deep-purple::-webkit-scrollbar-track {
+-webkit-box-shadow: none;
+border: 1px solid #512da8; }
+
+.bordered-deep-purple::-webkit-scrollbar-thumb {
+-webkit-box-shadow: none; }
+
+.bordered-cyan::-webkit-scrollbar-track {
+-webkit-box-shadow: none;
+border: 1px solid #00bcd4; }
+
+.bordered-cyan::-webkit-scrollbar-thumb {
+-webkit-box-shadow: none; }
+
+.square::-webkit-scrollbar-track {
+border-radius: 0 !important; }
+
+.square::-webkit-scrollbar-thumb {
+border-radius: 0 !important; }
+
+.thin::-webkit-scrollbar {
+width: 6px; }
+
+.example-1 {
+position: relative;
+overflow-y: scroll;
+height: 200px; }
+</style>
