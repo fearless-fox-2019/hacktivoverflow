@@ -16,6 +16,7 @@ new CronJob('0 0 0 * * *', function() {
 
 class ControllerCron {
   static fetchStack () {
+    arr = []
     axios.get(url)
     .then(({data}) => {
       const { items } = data
