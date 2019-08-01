@@ -2,11 +2,7 @@ const userModel = require('../models/userModel')
 const tagModel = require('../models/tagModel')
 const { hash, compare } = require('../helpers/bcryptjs')
 const { verify, sign } = require('../helpers/jwtoken')
-const CronJob = require('cron').CronJob
-
-new CronJob('* * * * * * ', function () {
-  
-}, null, true, 'Asia/Jakarta')
+const sendEmail = require('../helpers/nodemialer')
 
 class UserController {
   static signup (req, res, next) {
@@ -17,8 +13,20 @@ class UserController {
     userModel
       .create(newUser)
       .then(created => {
+        let bodyEmail = `
+        <h1> Welcome to Hoverflow ${created.username}</h1>
+        <h3>In hoverflow you can create a question and see other people question</h3>
+        <br>
+        <p>if you have a question to other perople just create a nuw questioin in home page, then wiat for other perople to answer it.</p>
+        <br>
+        <br>
+        <br>
+        <p>sincerelly</p>
+        <p>Hoverflow Team</p>
+        `
+        sendEmail(created.email, bodyEmail)
         res.status(201).json(created)
-      }).catch(next)
+      }) .catch(next)
   }
 
   static signin (req, res, next) {

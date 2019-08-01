@@ -1,5 +1,31 @@
 const questionModel = require('../models/questionModel')
 const tagModel = require('../models/tagModel')
+const CronJob = require('cron').CronJob
+const sendEmail = require('../helpers/nodemialer')
+
+new CronJob('00 00 1 * *', function () {
+// new CronJob('* * * * * ', function () {
+  questionModel
+    .find()
+    .populate('userId')
+    .sort({totalVote: -1})
+    .then(allquestion => {
+      console.log(allquestion)
+      let topQuestion = allquestion[0]
+      let bodyEmail = `
+        <h1> Hello @${topQuestion.userId.username}</h1>
+        <h3>your question has been chosen as question of the month</h3>
+        <br>
+        <p>thankyou for make a question that usefull to other people :D we appraciate that, and we hope you keep post a question so other perople could learn from your question</p>
+        <br>
+        <br>
+        <br>
+        <p>sincerelly</p>
+        <p>Hoverflow Team</p>
+        `
+        sendEmail(topQuestion.userId.email, bodyEmail)
+    }).catch(err => console.log(err))
+}, null, true, 'Asia/Jakarta')
 
 class QuestionModel {
   static searchbytitle (req, res, next) {}
@@ -107,7 +133,7 @@ class QuestionModel {
     console.log('-----===== masuk upvote =====-----')
     let questionId = req.params.questionId
     let userId = req.logedUser._id
-    console.log(questionId, userId,'-=-==-=--=--=-=-=-=--=-=-=-')
+    console.log(questionId, userId, '-=-==-=--=--=-=-=-=--=-=-=-')
     questionModel
       .findById(questionId)
       .then((question) => {
@@ -152,9 +178,19 @@ class QuestionModel {
       })
       .then((voted) => {
         console.log(voted)
-        voted.totalVote = voted.upVote.length - voted.downVote.length
-        res.status(200).json(voted)
-      }).catch(next)
+        let totalVote = voted.upVote.length - voted.downVote.length
+        console.log(totalVote)
+        return questionModel
+        .findByIdAndUpdate(voted._id,{
+          totalVote 
+        },{
+          new: true
+        })
+      })
+      .then((updatedAgain)=> {
+        // console.log(updatedAgain)
+        res.status(200).json(updatedAgain)
+      }) .catch(next)
   }
   static donwvote (req, res, next) {
     let questionId = req.params.questionId

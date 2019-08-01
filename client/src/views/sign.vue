@@ -107,10 +107,11 @@ export default {
   left: auto;
   right: auto;
   top: 100px;
-  min-height: 50vh;
+  min-height: 36vh;
   max-width: 300px;
   border-radius: 7px;
 }
+
 .signinform {
   width: 250px;
   align-items: center;
@@ -129,6 +130,7 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
+  text-align: center;
 }
 .link {
   margin: 10px;
