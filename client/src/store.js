@@ -255,6 +255,11 @@ export default new Vuex.Store({
           console.log('berhasil update dong')
           console.log(data)
           commit('setUpdateQuestion', data)
+          Swal.fire(
+            'Updated!!',
+            'You question success updated!',
+            'success'
+          )
         })
         .catch(err => {
           console.log(err)

@@ -73,10 +73,10 @@ class QuestionController{
         
         let updateQuestion = {}
         console.log(req.body);
-        
+        let splittedTags = req.body.tags
         req.body.title && (updateQuestion.title = req.body.title)
         req.body.question && (updateQuestion.question = req.body.question)
-
+        req.body.tags && (updateQuestion.tags = splittedTags)
         Question.findByIdAndUpdate(req.params.id, updateQuestion, { new : true })
         .then(found => {
             console.log("berhasil update");

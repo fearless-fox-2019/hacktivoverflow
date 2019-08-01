@@ -7,9 +7,9 @@
             <b-form-input id="title" type="text" placeholder="Title" v-model="question.title"></b-form-input>
           </b-form-group>
           <b-form-group id="question" label="Question" label-for="question">
-            <b-form-input id="question" type="text" placeholder="Question" v-model="question.question"></b-form-input>
+            <!-- <b-form-input id="question" type="text" placeholder="Question" v-model="question.question"></b-form-input> -->
           </b-form-group>
-          <wysiwyg style="margin-bottom:20px; "/>
+          <wysiwyg style="margin-bottom:20px; " v-model="question.question"/>
           <b-form-group id="tags" label="Tags" label-for="tag">
             <b-form-input id="tag" type="text" placeholder="sperate with , ex : javascript,java,ruby" v-model="question.tags"></b-form-input>
           </b-form-group>
