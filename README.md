@@ -22,7 +22,7 @@ http://omniscience.mhtrmkholis.com/
 ## User Routes
 | Route        | HTTP | Header(s)  | Body                                                  | Response                                                                                                                             |
 |--------------|------|------------|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| /users       | POST | none       | username: String <br> email: String <br> password: String | **Success:** <br> 201: Object User <br> **Error:** <br> 400: Validation Error <br> 500: Internal server error                        |
+| /users/register       | POST | none       | username: String <br> email: String <br> password: String | **Success:** <br> 201: Object User <br> **Error:** <br> 400: Validation Error <br> 500: Internal server error                        |
 | /users/login | POST | none       | email: String <br> password: String                   | **Success:** <br> 200: Access token, Object User <br> **Error:** <br> 500: Internal server error <br> 400: Username / Password wrong |
 
 ## Answer Routes
