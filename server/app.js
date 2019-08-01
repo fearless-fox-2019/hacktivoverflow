@@ -11,7 +11,7 @@ const errorHandlers = require('./middlewares/error-handlers');
 
 mongoose.set('useCreateIndex', true)
 mongoose.set('useFindAndModify', false);
-mongoose.connect(`mongodb+srv://muhtaromkholis:0227200351@cluster0-lbze5.gcp.mongodb.net/hacktivoverflow`, { useNewUrlParser: true });
+mongoose.connect(`${process.env.MONGO_DB}`, { useNewUrlParser: true });
 
 app.use(cors());
 app.use(express.json());
