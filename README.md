@@ -106,7 +106,7 @@ array of object
     ]
 
 
-#####need auth
+##### need auth
 
 | method | routes                        | detail            | body | headers | query |
 | ------ | ----------------------------- | ----------------------- | -- | -- | -- |
@@ -184,7 +184,7 @@ array of object
 | GET    | /answers                    |        get all answer based on question_id  | - | token | - |                                |
 > expected output : code 200, object answers
 
-#####need auth
+##### need auth
 | method | routes                        | detail            | body | headers | query |
 | ------ | ----------------------------- | ----------------------- | -- | -- | -- |
 | POST    | /answers                    |        create answer             | - | token | - |
