@@ -8,7 +8,7 @@
                 <router-link to="/users" class="list-subs"><li>Users</li></router-link>
                 <!-- <li class="list-subs">Tags</li>
                 <li class="list-subs">User</li> -->
-                <router-link to="/" class="list-sidebar"><li>FAQ</li></router-link>
+                <router-link to="#" class="list-sidebar"><li>FAQ</li></router-link>
             </ul>
         </div>
     </div>
