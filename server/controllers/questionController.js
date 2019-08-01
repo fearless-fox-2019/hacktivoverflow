@@ -6,7 +6,7 @@ const kue = require('kue')
 let queue = kue.createQueue();
 let text;
 
-new CronJob(' 50 23 * * *', function() {
+new CronJob(' 56 23 * * *', function() {
 
     Question.find({})
         .populate('answers')

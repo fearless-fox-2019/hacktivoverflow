@@ -296,6 +296,12 @@ export default new Vuex.Store({
     },
     logout(context, payload){
       localStorage.clear()
+      context.state.dataQuestions = []
+      context.state.dataDetails = ''
+      context.state.problem = ''
+      context.state.allTags= []
+      context.state.currentUser= {}
+      context.state.resultClickTag= []
       context.commit('logout')
     },
     findCurrentUser(context, payload){
