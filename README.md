@@ -30,8 +30,8 @@ There are three available resources:
 
 ####  Questions Routes 
 
-### CRUD Routing for questions
 ##CREATE, UPDATE AND DELETE PROCESS REQUIRE AUTHENTICATION!
+### CRUD Routing for questions
 | Routes | Method | Request Body | Response Success | Response Error | Description|
 |-----------------------------------|--------|----------------------------------|------------------|---------------------|------------------------------------------------------------------------------|
 | `/questions/allquestions`| GET | -| `{ data }`| 500 (Internal Server Error) | 
