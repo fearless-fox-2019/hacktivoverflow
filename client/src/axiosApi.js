@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let ax = axios.create({
-  baseURL: 'http://localhost:3001'
+  baseURL: 'http://18.220.121.203'
 
 })
 
