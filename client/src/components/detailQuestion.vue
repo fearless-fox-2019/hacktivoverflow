@@ -1,17 +1,19 @@
 <template>
     <div class="container" style="margin-top: 7%;">
 
-        <article class="media">
+        <article class="media" v-if="currentQuestion.upvotes">
             <!-- Question section -->
             <div id="vote-box" class="media-left" style="width: 50px">
-                <p>
-                    <i class="fas fa-caret-up" id="arrow"></i>
+                <p @click.prevent="$store.dispatch('upvoteQuestion', currentQuestion._id)">
+                    <i v-if="statusvote === 'down' || statusvote === ''" class="fas fa-caret-up" id="arrow"></i>
+                    <i v-if="statusvote === 'up'" class="fas fa-caret-up" id="arrowOk"></i>
                 </p>
                 <p id="totalVote">
                     {{currentQuestion.upvotes.length-currentQuestion.downvotes.length}}
                 </p>
-                <p>
-                    <i class="fas fa-caret-down" id="arrow"></i>
+                <p @click.prevent="$store.dispatch('downvoteQuestion', currentQuestion._id)">
+                    <i v-if="statusvote === 'up' || statusvote === ''" class="fas fa-caret-down" id="arrow"></i>
+                    <i v-if="statusvote === 'down'" class="fas fa-caret-down" id="arrowOk"></i>
                 </p>
             </div>
             <div class="media-content">
@@ -20,9 +22,15 @@
 
                     <article v-html="currentQuestion.description" class="media"></article>
                     <br>
-                    <b-taglist>
-                        <b-tag v-for="tag in currentQuestion.tags" :key="tag" type="is-info" > {{tag}}</b-tag>
-                    </b-taglist>
+                    <div class="tags">
+                        <span v-for="(tag, index) in currentQuestion.tags" 
+                            :key="index"
+                            @click.prevent="searchTag(tag)" 
+                            class="tag is-info">
+                            <a style="color: white">{{tag}}</a>
+                        </span>
+                    </div>
+
                     <div id="footer" style="margin-top: -10px">
                         <p><small>Asked by: {{currentQuestion.userId.name}} · {{questionTime}}</small></p>
                         <div v-if="loggedUser == currentQuestion.userId._id" style="width: 80px; display: flex; justify-content: space-around">
@@ -40,50 +48,23 @@
 
                 <!-- Answer Section -->
                 <article v-for="answer in currentQuestion.answers" :key="answer._id"  class="media" style="margin-top: -10px">
-                <div id="vote-box" class="media-left" style="width: 50px">
-                    <p>
-                        <i class="fas fa-caret-up" id="arrow"></i>
-                    </p>
-                    <p id="totalVote">
-                        {{answer.upvotes.length-answer.downvotes.length}}
-                    </p>
-                    <p>
-                        <i class="fas fa-caret-down" id="arrow"></i>
-                    </p>
-                </div>
-                <div class="media-content">
-                    <div class="content">
-                        <p><strong>{{answer.title}}</strong> </p>
-                        <article id="content-txt" v-html="answer.description" class="media"></article>
-                        <div id="footer">
-                            <p><small>Answered by: {{answer.userId.name}} · {{questionTime}}</small></p>
-                            <div v-if="loggedUser == answer.userId._id" style="width: 80px; display: flex; justify-content: space-around">
-                                <a @click="toEditAnswer"><i class="fas fa-edit"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <formAnswer
-                    v-if="edit === 'answer'"
-                    :answer="answer"
-                    @gotData="saveAnswer"
-                    @cancel="close"
-                ></formAnswer>
+                    <partAnswer :answer="answer"></partAnswer>
+         
                 </article>
             </div>
         </article>
         <!-- Post answer Section -->
         <article  class="media">
             <div class="media-left">
-                <p>Your Answer:</p>
+                <p class="title is-5">Your Answer:</p>
             </div>
             <div class="media-content">
                 <div class="field">
                 <p class="control">
-                    <b-field  class="has-text-left" label="Title">
+                    <b-field  class="has-text-left" label="Title :">
                         <b-input v-model="newAnswer.title"></b-input>
                     </b-field>
-                    <b-field  class="has-text-left" label="Description"></b-field>
+                    <b-field  class="has-text-left" label="Description :"></b-field>
                     <wysiwyg v-model="newAnswer.description" />
                 </p>
                 </div>
@@ -101,27 +82,47 @@
 import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
 import formQuestion from '@/components/formQuestion.vue'
-import formAnswer from '@/components/formAnswer.vue'
+import partAnswer from '@/components/partAnswer.vue'
 
 export default {
     name: 'detailQuestion',
     components:{
         formQuestion,
-        formAnswer
+        partAnswer
+
     },
     data(){
         return {
             edit:'',
+            statusvote:'',
             loggedUser:"",
-            questionTime:'',
             newAnswer:{
                 title:'',
                 description:''
             }
         }
     },
+     
     methods:{
-        ...mapActions(['getCurrentQuestion', 'createAnswer', 'deleteQuestion', 'updateQuestion']),
+        ...mapActions(['getAllQuestion','getCurrentQuestion', 'createAnswer', 'deleteQuestion', 'updateQuestion']),
+
+        checkUpvote(){
+            if(this.currentQuestion.upvotes.includes(this.loggedUser)){
+                this.statusvote='up'
+            }
+        },
+
+        checkDownvote(){
+            if(this.currentQuestion.downvotes.includes(this.loggedUser)){
+                this.statusvote='down'
+            }
+        },
+
+        searchTag(tag){
+            console.log('ketrigger', tag)
+            this.$router.push('/home')
+            this.getAllQuestion('/questions?tag='+tag)
+        },
 
         submitAnswer(){
             let data={
@@ -168,12 +169,30 @@ export default {
         }
     },
     computed:{
-        ...mapState(['currentQuestion'])
+        ...mapState(['currentQuestion']),
+        
+        upvotes(){
+            return this.currentQuestion.upvotes
+        },
+        downvotes(){
+            return this.currentQuestion.downvotes
+        },
+        questionTime(){
+           return moment(this.currentQuestion.createdAt).fromNow()
+        }
     },
     created(){
         this.getCurrentQuestion()
-        this.questionTime= moment(this.currentQuestion.createdAt).fromNow()
         this.loggedUser= localStorage.userId
+        
+    },
+    watch:{
+        upvotes(val){
+            this.checkUpvote()
+        },
+        downvotes(val){
+            this.checkDownvote()
+        }
     }
 }
 </script>
@@ -186,6 +205,10 @@ export default {
     }
     #arrow{
         font-size: 30px
+    }
+    #arrowOk{
+        font-size: 30px;
+        color: red
     }
     #totalVote{
         font-size: 24px;

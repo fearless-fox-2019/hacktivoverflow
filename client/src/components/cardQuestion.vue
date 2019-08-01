@@ -3,15 +3,15 @@
         <div class="card-content">
             <div class="content columns">
                 <div class="column" style="border-right: 2px solid black">
-                    <p>Votes</p>
-                    <p>{{question.upvotes.length-question.downvotes.length}}</p>
+                    <p id="sign">Votes</p>
+                    <p style="font-weight: bold">{{question.upvotes.length-question.downvotes.length}}</p>
                 </div>
                 <div class="column" style="border-right: 2px solid black">
-                    <p>Answers</p>
-                    <p>{{question.answers.length}}</p>
+                    <p id="sign">Answers</p>
+                    <p style="font-weight: bold">{{question.answers.length}}</p>
                 </div>
                 <div class="column is-10 is-paddingless " style="margin-top: 10px; margin-left: 15px">
-                    <h5 id="title" @click="toDetail" class="title is-5 has-text-left">{{question.title}}</h5>
+                    <h5 id="title" @click="toDetail" class="title is-6 has-text-left">{{question.title}}</h5>
                     <div id="footer">
                         <div class="tags">
                             <span v-for="(tag, index) in question.tags" 
@@ -31,6 +31,7 @@
 
 <script>
 import moment from 'moment'
+import { mapActions } from 'vuex'
 
 export default {
     name:'cardQuestio',
@@ -41,11 +42,15 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['getAllQuestion']),
+
         toDetail(){
             this.$router.push(`/detail/${this.question._id}`)
         },
         searchTag(tag){
             console.log('ketrigger', tag)
+            this.$router.push('/home')
+            this.getAllQuestion('/questions?tag='+tag)
         }
     },
     created(){
@@ -67,5 +72,12 @@ export default {
     #author{
         font-size: 12px;
         font-style: italic
+    }
+
+    #sign{
+        margin-top: -8px;
+        font-weight: bold;
+        text-decoration: underline;
+        color: darkred
     }
 </style>

@@ -1,5 +1,36 @@
 const Question= require('../models/question')
 const Answer= require('../models/answer')
+const CronJob = require('cron').CronJob;
+
+// Cron to delete question with votes value -250
+// Runing every year at 31 Dec at 23.00
+new CronJob('55 23 31 12 *', async () => {
+
+    Question.find({})
+    .then(questions => {
+        let data= []
+        questions.forEach(question => {
+            let totalVote= question.upvotes.length - question.downvotes.length
+            if(totalVote < -200) data.push(question._id)
+        })
+        console.log('ini datanya', data)
+        if(data.length > 0){
+            let promises=[]
+            data.forEach(el =>{
+                promises.push(Question.deleteOne({_id: el}))
+            })
+
+            return Promise.all(promises)
+        }
+    })
+    .then(success =>{
+        console.log('success delete data', success)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
+}, null, true, 'Asia/Jakarta');
 
 class questionController{
 
@@ -110,6 +141,7 @@ class questionController{
 
         Question.findById(questionId)
         .then(question =>{
+
             if(!question){
                 throw {code: 404, message: 'Question not found'}
             }else{

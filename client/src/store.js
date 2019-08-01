@@ -208,6 +208,91 @@ export default new Vuex.Store({
         console.log('error delete question')
         console.log(err)
       })
+    },
+    updateAnswer({dispatch}, payload){
+      
+      axios({
+        url:`/answer/${payload._id}`,
+        method: 'patch',
+        data: payload,
+        headers:{
+          'token': localStorage.token
+        }
+      })
+      .then(({data})=> {
+        dispatch('getCurrentQuestion')
+      })
+      .catch(err => {
+        console.log('error update answer')
+        console.log(err)
+      })
+    },
+    upvoteQuestion({dispatch}, payload){
+      
+      axios({
+        url:`/questions/upvotes/${payload}`,
+        method: 'patch',
+        headers:{
+          'token' : localStorage.token
+        }
+      })
+      .then(({data}) => {
+        dispatch('getCurrentQuestion')
+      })
+      .catch(err => {
+        console.log('error upvotes question')
+        console.log(err)
+      })
+    },
+    downvoteQuestion({dispatch}, payload){
+      axios({
+        url:`/questions/downvotes/${payload}`,
+        method: 'patch',
+        headers:{
+          'token' : localStorage.token
+        }
+      })
+      .then(({data}) => {
+        dispatch('getCurrentQuestion')
+      })
+      .catch(err => {
+        console.log('error upvotes question')
+        console.log(err)
+      })
+    },
+    upvoteAnswer({dispatch}, payload){
+      console.log('masuk upvote answer')
+      axios({
+        url:`/answers/upvotes/${payload}`,
+        method: 'patch',
+        headers:{
+          'token' : localStorage.token
+        }
+      })
+      .then(({data}) => {
+        
+        dispatch('getCurrentQuestion')
+      })
+      .catch(err => {
+        console.log('error upvotes question')
+        console.log(err)
+      })
+    },
+    downvoteAnswer({dispatch}, payload){
+      axios({
+        url:`/answers/downvotes/${payload}`,
+        method: 'patch',
+        headers:{
+          'token' : localStorage.token
+        }
+      })
+      .then(({data}) => {
+        dispatch('getCurrentQuestion')
+      })
+      .catch(err => {
+        console.log('error upvotes question')
+        console.log(err)
+      })
     }
   }
 })

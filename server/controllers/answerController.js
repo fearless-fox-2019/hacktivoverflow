@@ -73,19 +73,20 @@ class answerController{
                 throw {code: 404, message: 'Answer not found!'}
             }else{
                 if(answer.upvotes.includes(userId)){
-                    return Answer.findByIdAndUpdate(_id , {$pull : { upvotes: userId }})
+                    return Answer.findByIdAndUpdate(_id , {$pull : { upvotes: userId }},{new: true})
                 }else{
                     return Promise.all([
                                 Answer.findByIdAndUpdate(_id, {$addToSet : { upvotes: userId }}),
                                 Answer.findByIdAndUpdate(_id , {$pull : { downvotes: userId }})
                             ])
-                    .then(answer =>{
-                        res.status(200).json(answer)
-                    })
-                    .catch(next)
+                    
                 }
             }
         })
+        .then(answer =>{
+            res.status(200).json(answer[0])
+        })
+        .catch(next)
     }
 
     static updateDownvotes(req, res, next){
@@ -104,13 +105,13 @@ class answerController{
                                 Answer.findByIdAndUpdate(_id , {$addToSet : { downvotes: userId }}),
                                 Answer.findByIdAndUpdate(_id , {$pull : { upvotes: userId }})
                             ])
-                    .then(answer =>{
-                        res.status(200).json(answer)
-                    })
-                    .catch(next)
                 }
             }
         })
+        .then(answer =>{
+            res.status(200).json(answer[0])
+        })
+        .catch(next)
     }
 
     static remove(req, res, next){

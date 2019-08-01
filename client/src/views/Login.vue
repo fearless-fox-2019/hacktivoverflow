@@ -7,7 +7,7 @@
         <!-- Sign In Section -->
         <div v-if="page === 'login'" class="columns is-mobile" style="margin-top: 7%">
           <div class="column is-half is-offset-one-quarter">
-            <h3>Sign In to H8Overflow</h3><br>
+            <h3 class="title is-3">Sign In to H8Overflow</h3><br>
             <g-signin-button
                     class="button"
                     :params="googleSignInParams"
@@ -25,14 +25,15 @@
                 </b-field><br>
                   <input type="submit" value="Sign In" class="button is-success is-outlined is-rounded">
               </form>
-              <p class="help">Don't have account? <span @click="changePage('register')" style="font-weight:bold">Sign Up</span></p>
+              <p class="help subtitle is-6">Don't have account? <span @click="changePage('register')" style="font-weight:bold">Sign Up</span></p>
           </div>
       </div>
 
       <!-- Sign Up Section -->
-      <div v-if="page === 'register'" class="columns is-mobile" style="margin-top: 7%">
+      <div v-if="page === 'register'" class="columns is-mobile" style="margin-top: 5%">
           <div class="column is-half is-offset-one-quarter">
-            <h3>Create your Stack Overflow account. It’s free and only takes a minute.</h3><br>
+            <h3 class="title is-5">Create your Stack Overflow account.</h3>
+            <h3 class="title is-5" style="margin-top: -10px">  It’s free and only takes a minute.</h3>
 
             <g-signin-button
                     class="button"
@@ -68,7 +69,7 @@
                 <br>
                   <input type="submit" value="Sign Up" class="button is-success is-outlined is-rounded">
               </form>
-              <p class="help">Already have account? <span @click="changePage('login')" style="font-weight:bold" >Sign In</span></p>
+              <p class="help subtitle is-6">Already have account? <span @click="changePage('login')" style="font-weight:bold" >Sign In</span></p>
 
           </div>
       </div>

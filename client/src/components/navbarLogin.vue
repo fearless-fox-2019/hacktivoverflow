@@ -3,7 +3,7 @@
         <nav class="navbar is-light has-shadow is-fixed-top" style="box-shadow: 10px 10px 5px lightgrey;">
             <div class="navbar-brand">
                 <a class="navbar-item" @click="toHome">
-                <img src="../assets/Logo.png" alt="Logo H8-Overflow" width="112" height="60">
+                  <img src="../assets/Logo.png" alt="Logo H8-Overflow" width="112" height="60">
                 </a>
             </div>
             <div class="navbar-menu">

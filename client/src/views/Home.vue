@@ -3,39 +3,43 @@
       <navBar></navBar>
       <!-- Searchbar and Data User -->
       <div class="tile is-ancestor container" id="bar-container" style="height: 200px">
-        <div class="tile is-parent is-8 ">
-          <article class="tile is-child box ">
-            <p class="subtitle">Search some question</p>
+        <div class="tile is-parent is-8" >
+          <article class="tile is-child box " style="background-color: lightgoldenrodyellow">
+            <p class="title is-3">Search some question</p>
             <div class="content is-paddingless">
               <form @submit.prevent="searchQuestion">
                 <b-field style="margin-top: -10px">
-                    <b-input placeholder="Your Question..."
-                        v-model="keyword"
-                        type="search"
-                        icon-pack="fas"
-                        icon="search"
-                        rounded
-                        >
-                    </b-input>
+                  <b-input placeholder="Your Question..."
+                      v-model="keyword"
+                      type="search"
+                      icon="magnify"
+                      rounded
+                      style="width: 100%"
+                    >
+                  </b-input>
+                  <p class="control">
+                      <button class="button is-primary">Search</button>
+                  </p>
                 </b-field>
+
               </form>
-              <p>Or Ask new question</p>
+              <p style="margin-top: 5px">Or ask new question</p>
               <a @click="toAdd" class="button is-success is-focused is-small" style="margin-top: -10px">New Question</a>
             </div>
           </article>
         </div>
         <div class="tile is-parent">
-          <article class="tile is-child box">
-            <p class="subtitle">Your Post</p>
-            <div class="content">
+          <article id="board-box" class="tile is-child box">
+            <p class="subtitle" style="font-weight: bold">Your Post</p>
+            <div class="content" style="border-top: 2px solid black">
               <div class="columns">
-                <div class="column">
-                  <p>My Questions</p>
+                <div class="column" style="border-right: 2px solid black">
+                  <p id="board-title">My Questions</p>
                   <p @click="toMyQuestion" id="my-question">{{myQuestion.length}}</p>
                 </div>
                 <div class="column">
-                  <p>My Answers</p>
-                  <p>{{myAnswer.length}}</p>
+                  <p id="board-title">My Answers</p>
+                  <p style="font-size: 24px; font-weight: bold">{{myAnswer.length}}</p>
                 </div>
               </div>
             </div>
@@ -49,6 +53,7 @@
           
           <div class="box">
             <p class="title is-5 has-text-left">All Questions</p>
+            <p v-if="allQuestion.length === 0" class="title is-6"> No Question!</p>
             <div v-for="question in allQuestion" :key="question._id">
               <cardQuestion :question="question"></cardQuestion>
             </div>
@@ -56,7 +61,7 @@
         </div>
         <div class="column  is-narrow">
           <div class="card" style="width: 300px;">
-              <header class="card-header">
+              <header class="card-header"  style="background-color: lightsalmon; border-bottom: 2px solid coral">
                 <p class="card-header-title">
                   Watched Tag
                 </p>
@@ -69,7 +74,7 @@
               <div class="card-content">
                 <div class="content" >
                   <div class="field" style="margin-bottom: -10px" >
-                    <div class="tags">
+                    <div v-if="editTag === 'no' " class="tags">
                         <span v-for="(tag, index) in userTags" 
                             :key="index"
                             @click.prevent="searchTag(tag)" 
@@ -78,7 +83,7 @@
                         </span>
                     </div>
                   </div>
-                    <div v-if="editTag">
+                    <div v-if="editTag === 'ok'">
                       <b-taginput 
                         v-model="userTags"
                         ellipsis
@@ -87,8 +92,10 @@
                         style="margin-bottom: 5px"
                       >
                     </b-taginput>
-
-                    <b-button @click="updateTag" type="is-warning is-small">Save</b-button>
+                    <div style="display: flex; justify-content: space-around">
+                      <b-button @click="updateTag" type="is-success is-small">Save</b-button>
+                      <b-button @click="cancelEditTag" type="is-warning is-small">Cancel</b-button>
+                    </div>
 
                     </div>
                     
@@ -115,7 +122,7 @@ export default {
     return {
       newTag:'',
       keyword:'',
-      editTag: false
+      editTag: 'no'
 
 
     }
@@ -139,11 +146,13 @@ export default {
         this.getAllQuestion('/questions?tag='+tag)
       },
       toEditTag(){
-        this.editTag= true
+        this.editTag= 'ok'
+      },
+      cancelEditTag(){
+        this.editTag= 'no'
       },
       updateTag(){
-
-        this.editTag=false
+        this.editTag='no'
         this.updateUserTags(this.userTags)
         
       }
@@ -170,16 +179,31 @@ export default {
  #section-part{
    width: 1200px;
    height: 2px;
-   background-color: black;
-   margin-left: 3%
+   background-color: rgba(0, 0, 0, 0.5);
+   margin-left: 3%;
+   box-shadow: 2px 2px 4px coral
+
  }
 
  #tag:hover{
    cursor: pointer
  }
 
+ #my-question{
+  font-size: 24px;
+  font-weight: bold;
+ }
+
  #my-question:hover{
-   cursor: pointer
+   cursor: pointer;
+ }
+ #board-box{
+   background-color: lightgoldenrodyellow
+ }
+ #board-title{
+   margin-top: 10px;
+   font-weight: bold;
+   color: lightseagreen
  }
 </style>
 
