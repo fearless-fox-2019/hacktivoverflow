@@ -7,4 +7,5 @@ routes.post("/", questionController.create)
 routes.get("/", questionController.readAllQuestion)
 routes.get("/:id", questionController.readOwnQuestion)
 
+
 module.exports = routes

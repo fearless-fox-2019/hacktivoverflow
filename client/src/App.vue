@@ -26,7 +26,7 @@ export default {
       if (this.loggedIn == false) {
         this.$router.push("/");
       }else{
-        this.$router.push("/allQuestion")
+        this.$router.push("/allQuestions")
       }
     }
   },
