@@ -23,6 +23,7 @@ export default new Vuex.Store({
   },
   actions: {
     signUp({ commit }, payload) {
+      commit('loading', true);
       axios({
         method: 'POST',
         url: '/users/signup',
@@ -37,6 +38,7 @@ export default new Vuex.Store({
             hasIcon: true,
             closable: false,
           });
+          commit('loading', false);
         })
         .catch((err) => {
           Notification.open({
@@ -50,278 +52,340 @@ export default new Vuex.Store({
         });
     },
     signIn({ commit }, payload) {
+      commit('loading', true);
       axios({
         method: 'POST',
         url: '/users/signin',
         data: payload,
       })
-      .then(({ data }) => {
-        Notification.open({
-          duration: 1500,
-          message: 'You Have Signed In',
-          position: 'is-top-right',
-          type: 'is-info',
-          hasIcon: true,
-          closable: false,
+        .then(({ data }) => {
+          Notification.open({
+            duration: 1500,
+            message: 'You Have Signed In',
+            position: 'is-top-right',
+            type: 'is-info',
+            hasIcon: true,
+            closable: false,
+          });
+          commit('postSignIn', data);
+          commit('insertUserQuestions', data);
+          commit('loading', false);
+        })
+        .catch((err) => {
+          Notification.open({
+            duration: 3000,
+            message: err,
+            position: 'is-top-right',
+            type: 'is-danger',
+            hasIcon: true,
+          });
         });
-        commit('postSignIn', data);
-        commit('insertUserQuestions', data);
-
-      })
-      .catch((err) => {
-        Notification.open({
-          duration: 3000,
-          message: err,
-          position: 'is-top-right',
-          type: 'is-danger',
-          hasIcon: true,
-        });
-      });
     },
     getJob({ commit }) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/jobs',
+        url: '/jobs',
       })
-      .then(({ data }) => {
-        commit('mountAds', data)
-      })
-      .catch((err) => {
-        console.log('Error in Processing Data');
-        console.log(err);
-      })
+        .then(({ data }) => {
+          commit('mountAds', data);
+        })
+        .catch((err) => {
+          console.log('Error in Processing Data');
+          console.log(err);
+        });
     },
     getQuestions({ commit, state }) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/questions/all',
+        url: '/questions/all',
       })
-      .then(({ data }) => {
-        commit('mountQuestions', data)
-      })
-      .catch((err) => {
-        console.log('Error In Retrieving All Questions');
-        console.log(err);
-      })
+        .then(({ data }) => {
+          commit('mountQuestions', data);
+        })
+        .catch((err) => {
+          console.log('Error In Retrieving All Questions');
+          console.log(err);
+        });
     },
     sendQuestion({ commit, state, dispatch }, payload) {
-      commit('loading', true)
+      commit('loading', true);
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/questions/create',
+        url: '/questions/create',
         data: payload,
-        headers : {
-          token : localStorage.token
-        }
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        commit('loading', false)
-        Notification.open({
-          duration: 5000,
-          message: `Question Created`,
-          position: 'is-top-right',
-          type: 'is-success',
-          hasIcon: true
+        .then(({ data }) => {
+          commit('loading', false);
+          Notification.open({
+            duration: 5000,
+            message: 'Question Created',
+            position: 'is-top-right',
+            type: 'is-success',
+            hasIcon: true,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          router.push('/');
         })
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-      })
-      .catch((err) => {
-        commit('loading', false)
-        console.log(err);
-        console.log(err.response.data.message);
-        Notification.open({
-          duration: 5000,
-          message: `Error : ${err.response.data.message}`,
-          position: 'is-top-right',
-          type: 'is-success',
-          hasIcon: true
-        })
-      })
+        .catch((err) => {
+          commit('loading', false);
+          console.log(err);
+          console.log(err.response.data.message);
+          Notification.open({
+            duration: 5000,
+            message: `Error : ${err.response.data.message}`,
+            position: 'is-top-right',
+            type: 'is-success',
+            hasIcon: true,
+          });
+        });
     },
     deleteQuestion({ commit, dispatch }, payload) {
+      commit('loading', true);
       axios({
         method: 'DELETE',
-        url: `http://localhost:3000/questions/delete/${payload}`,
-        headers : {
-          token : localStorage.token
-        }
+        url: `/questions/delete/${payload}`,
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          Notification.open({
+            duration: 3000,
+            message: 'Question Deleted',
+            position: 'is-top-right',
+            type: 'is-info',
+            hasIcon: true,
+            closable: false,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          router.push('/');
+          commit('loading', false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    getUserQuestions({ commit, state}, payload) {
+    getUserQuestions({ commit, state }, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/questions/questionuser',
-        headers : {
-          token : localStorage.token
-        }
+        url: '/questions/questionuser',
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        // console.log('Data Retrieved');
-        // console.log(data);
-        commit('mountUserQuestions', data)
-      })
-      .catch((err) => {
-        console.log('Error');
-        console.log(err);
-      })
+        .then(({ data }) => {
+          commit('mountUserQuestions', data);
+        })
+        .catch((err) => {
+          console.log('Error');
+          console.log(err);
+        });
     },
-    getSelectedQuestion({ commit, state}, payload) {
+    getSelectedQuestion({ commit, state }, payload) {
       axios({
         method: 'GET',
-        url: `http://localhost:3000/questions/${payload}`,
-        headers : {
-          token : localStorage.token
-        }
+        url: `/questions/${payload}`,
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
+        .then(({ data }) => {
         // console.log('Data Selected');
         // console.log(data);
         // console.log(typeof data);
-        commit('mountSelectedQuestion', data)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+          commit('mountSelectedQuestion', data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    vote({ commit, dispatch}, payload) {
+    vote({ commit, dispatch }, payload) {
+      commit('loading', true);
       axios({
         method: 'PATCH',
-        url: `http://localhost:3000/questions/vote/${payload.id}`,
+        url: `/questions/vote/${payload.id}`,
         data: {
-          vote : payload.value
+          vote: payload.value,
         },
-        headers : {
-          token : localStorage.token
-        }
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          Notification.open({
+            duration: 1000,
+            message: 'Voted !',
+            position: 'is-top-right',
+            type: 'is-info',
+            hasIcon: true,
+            closable: false,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          commit('loading', false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     editQuestion({ commit, dispatch }, payload) {
+      commit('loading', true);
       axios({
         method: 'PATCH',
-        url: `http://localhost:3000/questions/update/${payload.id}`,
+        url: `/questions/update/${payload.id}`,
         data: {
           title: payload.title,
-          question: payload.question
+          question: payload.question,
         },
-        headers : {
-          token : localStorage.token
-        }
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-        router.push('/my-question')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          Notification.open({
+            duration: 3000,
+            message: 'Question Updated !',
+            position: 'is-top-right',
+            type: 'is-success',
+            hasIcon: true,
+            closable: false,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          router.push('/my-question');
+          commit('loading', true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     sendAnswer({ commit, dispatch }, payload) {
-      // console.log(payload, '@store');
+      commit('loading', true);
       axios({
         method: 'POST',
-        url: `http://localhost:3000/answers/post`,
+        url: '/answers/post',
         data: payload,
-        headers : {
-          token : localStorage.token
-        }
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          Notification.open({
+            duration: 3000,
+            message: 'Answer Created',
+            position: 'is-top-right',
+            type: 'is-success',
+            hasIcon: true,
+            closable: false,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          commit('loading', false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     voteAnswer({ commit, dispatch }, payload) {
+      commit('loading', true);
       axios({
         method: 'PATCH',
-        url: `http://localhost:3000/answers/vote/${payload.id}`,
+        url: `/answers/vote/${payload.id}`,
         data: {
-          vote : payload.value
+          vote: payload.value,
         },
-        headers : {
-          token : localStorage.token
-        }
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          Notification.open({
+            duration: 1000,
+            message: 'Voted !',
+            position: 'is-top-right',
+            type: 'is-info',
+            hasIcon: true,
+            closable: false,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          commit('loading', false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     getUserAnswers({ commit, dispatch }, payload) {
       axios({
         method: 'GET',
-        url: `http://localhost:3000/answers/user`,
-        headers : {
-          token : localStorage.token
-        }
+        url: '/answers/user',
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        commit('mountUserAnswers', data)
-      })
-      .catch()
+        .then(({ data }) => {
+          commit('mountUserAnswers', data);
+        })
+        .catch();
     },
     deleteAnswer({ commit, dispatch }, payload) {
+      commit('loading', true);
       axios({
         method: 'DELETE',
-        url: `http://localhost:3000/answers/delete/${payload}`,
-        headers : {
-          token : localStorage.token
-        }
+        url: `/answers/delete/${payload}`,
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserAnswers')
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(({ data }) => {
+          dispatch('getUserAnswers');
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          commit('loading', false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     editAnswer({ commit, dispatch }, payload) {
+      commit('loading', true);
       axios({
         method: 'PATCH',
-        url: `http://localhost:3000/answers/update/${payload.id}`,
-        data: { 
-          answer: payload.answer
+        url: `/answers/update/${payload.id}`,
+        data: {
+          answer: payload.answer,
         },
-        headers : {
-          token : localStorage.token
-        }
+        headers: {
+          token: localStorage.token,
+        },
       })
-      .then(({ data }) => {
-        dispatch('getUserQuestions')
-        dispatch('getQuestions')
-        router.push('/my-answer')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
+        .then(({ data }) => {
+          Notification.open({
+            duration: 3000,
+            message: 'Answer Updated',
+            position: 'is-top-right',
+            type: 'is-success',
+            hasIcon: true,
+            closable: false,
+          });
+          dispatch('getUserQuestions');
+          dispatch('getQuestions');
+          router.push('/my-answer');
+          commit('loading', false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mutations: {
     loading(state, payload) {
-      state.isLoading = payload
+      state.isLoading = payload;
     },
     checkLoggedUser(state) {
       if (localStorage.getItem('token')) {
@@ -335,7 +399,7 @@ export default new Vuex.Store({
       localStorage.setItem('id', payload.id);
       localStorage.setItem('user', payload.fullname);
       localStorage.setItem('email', payload.email);
-      
+
       state.loggedUser.id = payload.id;
       state.loggedUser.fullname = payload.fullname;
       state.loggedUser.email = payload.email;
@@ -352,57 +416,65 @@ export default new Vuex.Store({
       state.loggedUser.id = null;
       state.loggedUser.fullname = null;
       state.loggedUser.email = null;
-      router.push('/signin')
+
+      router.push('/signin');
+      Notification.open({
+        duration: 1500,
+        message: 'You Have Signed Out',
+        position: 'is-top-right',
+        type: 'is-info',
+        hasIcon: true,
+        closable: false,
+      });
     },
     mountAds(state, payload) {
-      state.ads = payload
+      state.ads = payload;
     },
     mountQuestions(state, payload) {
-      state.questions = payload
+      state.questions = payload;
     },
     mountUserQuestions(state, payload) {
-      state.userquestions = payload
+      state.userquestions = payload;
     },
     mountUserAnswers(state, payload) {
-      state.useranswers = payload
+      state.useranswers = payload;
     },
     mountSelectedQuestion(state, payload) {
-      state.selected = payload
+      state.selected = payload;
     },
     insertQuestion(state, payload) {
-      state.questions.unshift(payload)
-      state.userquestions.unshift(payload)
-      router.push('/')
+      state.questions.unshift(payload);
+      state.userquestions.unshift(payload);
+      router.push('/');
     },
     selectQuestion(state, payload) {
-      const selected = state.questions.find((val) => val._id == payload)
-      state.selected = selected
-      router.push(`/question/${payload}`)
+      const selected = state.questions.find(val => val._id == payload);
+      state.selected = selected;
+      router.push(`/question/${payload}`);
     },
     updateQuestion(state, payload) {
-      const updated =  state.questions.map((val) => {
+      const updated = state.questions.map((val) => {
         if (val._id === payload._id) {
-          val.upvotes = payload.upvotes
-          val.downvotes = payload.downvotes
+          val.upvotes = payload.upvotes;
+          val.downvotes = payload.downvotes;
         }
-        return val
-      })
+        return val;
+      });
       const userUpdated = state.userquestions.map((val) => {
         if (val._id === payload._id) {
-          val.upvotes = payload.upvotes
-          val.downvotes = payload.downvotes
+          val.upvotes = payload.upvotes;
+          val.downvotes = payload.downvotes;
         }
-        return val
-      })
-      state.userquestions = userUpdated
-      state.questions = updated
-      state.selected = updated[0]
+        return val;
+      });
+      state.userquestions = userUpdated;
+      state.questions = updated;
+      state.selected = updated[0];
     },
   },
   getters: {
-    getSelected: (state) => (id) => {
-      return state.questions.find((val) => val._id === id)
-      // 
-    }
+    getSelected: state => id => state.questions.find(val => val._id === id),
+    //
+
   },
 });

@@ -14,18 +14,18 @@ import NavigationBar from './components/Nav-Bar.vue';
 export default {
   created() {
     this.$store.commit('checkLoggedUser');
-    this.$store.dispatch('getJob')
-    this.$store.dispatch('getQuestions')
-    this.$store.dispatch('getUserQuestions')
-    this.$store.dispatch('getUserAnswers')
+    this.$store.dispatch('getJob');
+    this.$store.dispatch('getQuestions');
+    this.$store.dispatch('getUserQuestions');
+    this.$store.dispatch('getUserAnswers');
   },
   components: {
     NavigationBar,
   },
   data() {
     return {
-    }
-  }
+    };
+  },
 };
 </script>
 

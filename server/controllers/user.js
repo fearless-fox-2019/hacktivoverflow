@@ -47,14 +47,6 @@ class ControllerUser {
     .catch(next)
   }
 
-  static all(req, res, next) {
-    User.find()
-    .sort([['createdAt', 1]])
-    .then((found) => {
-      res.status(200).json(found)
-    })
-    .catch(next)
-  }
 }
 
 module.exports = ControllerUser

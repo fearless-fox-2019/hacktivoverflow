@@ -32,7 +32,7 @@ import { mapState } from 'vuex';
 
 export default {
   created() {
-    this.$store.dispatch('getSelectedQuestion', this.$route.params.id)
+    this.$store.dispatch('getSelectedQuestion', this.$route.params.id);
   },
   data() {
     return {
@@ -43,17 +43,17 @@ export default {
       config: {
         modules: {
           // syntax: true,
-          toolbar: [ 
+          toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             ['blockquote', 'code-block'],
             [
-              { 'list': 'ordered'},
-              { 'list': 'bullet' }
+              { list: 'ordered' },
+              { list: 'bullet' },
             ],
-          ]
+          ],
         },
-      }
-    }
+      },
+    };
   },
   methods: {
     editQuestion() {
@@ -61,9 +61,9 @@ export default {
         id: this.$route.params.id,
         title: this.form.title,
         question: this.form.question,
-      }
-      this.$store.dispatch('editQuestion', payload)
-    }
+      };
+      this.$store.dispatch('editQuestion', payload);
+    },
   },
   computed: {
     ...mapState({
@@ -71,15 +71,15 @@ export default {
       isLogin: state => state.isLogin,
     }),
     getSelected() {
-      return this.$store.getters.getSelected(this.$route.params.id) 
+      return this.$store.getters.getSelected(this.$route.params.id);
     },
   },
   watch: {
     getSelected() {
-      this.form.title
-    }
-  }
-}
+      this.form.title;
+    },
+  },
+};
 </script>
 
 <style>

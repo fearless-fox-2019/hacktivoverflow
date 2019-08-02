@@ -16,8 +16,8 @@ import SideBar from '../components/Side-Bar.vue';
 export default {
   components: {
     FormQuestion,
-    SideBar
-  }
+    SideBar,
+  },
 };
 </script>
 

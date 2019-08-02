@@ -36,10 +36,10 @@ export default {
   props: ['question'],
   methods: {
     selectQuestion(id) {
-      this.$store.commit('selectQuestion', id)
-    }
-  }
-}
+      this.$store.commit('selectQuestion', id);
+    },
+  },
+};
 </script>
 
 <style>

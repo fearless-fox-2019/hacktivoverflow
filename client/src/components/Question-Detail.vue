@@ -17,6 +17,7 @@
       <div class="column is-1">
         <div class="display-vote">
           <a
+            v-if="isLogin"
             @click.prevent="vote('up')">
             <b-icon
               pack="fas"
@@ -24,8 +25,10 @@
               size="is-large">
             </b-icon>
           </a>
-          <h6 style="font-size: 2em; text-align: center; padding-left:7.5px">{{getSelected.upvotes.length - getSelected.downvotes.length}}</h6>
+          <h6 style="font-size: 2em; text-align: center; margin-left:-10px">{{getSelected.upvotes.length - getSelected.downvotes.length}}</h6>
+          <small style="text-align: center; margin-left:-10px">Votes</small>
           <a
+            v-if="isLogin"
             @click.prevent="vote('down')">
             <b-icon
               pack="fas"
@@ -84,12 +87,12 @@
 </template>
 
 <script>
-import CardAnswer from './Card-Answer-Main.vue';
 import { mapState } from 'vuex';
+import CardAnswer from './Card-Answer-Main.vue';
 
 export default {
-  created () {
-    this.$store.dispatch('getSelectedQuestion', this.$route.params.id)
+  created() {
+    this.$store.dispatch('getSelectedQuestion', this.$route.params.id);
   },
   data() {
     return {
@@ -99,36 +102,36 @@ export default {
       },
       config: {
         placeholder: 'Insert Your Code Here',
-          modules: {
+        modules: {
           // syntax: true,
-          toolbar: [ 
+          toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             ['blockquote', 'code-block'],
             [
-              { 'list': 'ordered'},
-              { 'list': 'bullet' }
+              { list: 'ordered' },
+              { list: 'bullet' },
             ],
-          ]
+          ],
         },
-      }
-    }
+      },
+    };
   },
   methods: {
     vote(value) {
       const payload = {
         id: this.$route.params.id,
-        value
-      }
-      this.$store.dispatch('vote', payload)
+        value,
+      };
+      this.$store.dispatch('vote', payload);
     },
     answerQuestion() {
-      this.isAnswering = false; 
+      this.isAnswering = false;
       const payload = {
         questionId: this.$route.params.id,
-        answer: this.form.answer
-      }
-      this.$store.dispatch('sendAnswer', payload)
-    }
+        answer: this.form.answer,
+      };
+      this.$store.dispatch('sendAnswer', payload);
+    },
   },
   computed: {
     ...mapState({
@@ -137,18 +140,18 @@ export default {
       // selected: state => state.selected
     }),
     getSelected() {
-      return this.$store.getters.getSelected(this.$route.params.id) 
-    }
+      return this.$store.getters.getSelected(this.$route.params.id);
+    },
   },
   watch: {
     '$route.params.id': function (id) {
       // console.log(id);
-    }
+    },
   },
   components: {
     CardAnswer,
-  }
-}
+  },
+};
 </script>
 
 <style>

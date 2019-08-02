@@ -39,32 +39,32 @@ export default {
       },
       config: {
         placeholder: 'Insert Your Code Here',
-          modules: {
+        modules: {
           // syntax: true,
-          toolbar: [ 
+          toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             ['blockquote', 'code-block'],
             [
-              { 'list': 'ordered'},
-              { 'list': 'bullet' }
+              { list: 'ordered' },
+              { list: 'bullet' },
             ],
-          ]
+          ],
         },
-      }
-    }
+      },
+    };
   },
   methods: {
     showCodeQuill(value) {
-      this.isCode = value
+      this.isCode = value;
     },
     createQuestion() {
-      this.$store.dispatch('sendQuestion', this.form)
-    }
+      this.$store.dispatch('sendQuestion', this.form);
+    },
   },
   computed: mapState({
-    isLoading: state => state.isLoading
-  })
-}
+    isLoading: state => state.isLoading,
+  }),
+};
 </script>
 
 <style>
