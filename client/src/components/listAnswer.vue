@@ -28,68 +28,67 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import axios from '../config/axios.js'
 
 export default {
-    props : ['answer'],
-    data(){
-        return {
-            email : ""
-        }
-    },
-    methods : {
-        upvoteanswer(value){
-            console.log("kepencet upvote answer");
-            
-            axios({
-                method : `PATCH`,
-                url : `/answers/upvote/${value._id}`,
-                headers : {token : localStorage.token}
-            })
-            .then(({data}) => {
-                console.log(data);
-                    this.$store.dispatch('getAllAnswer', value.QuestionId)
-
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        },
-        downvoteanswer(id){
-          console.log("kepencet downvote answer");
-          
-            axios({
-                method : `PATCH`,
-                url : `/answers/downvote/${id}`,
-                headers : {token : localStorage.token}
-            })
-            .then(({data}) => {
-                console.log(data);
-                this.$store.dispatch('getOneAnswer', id)
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        },
-        deleteAnswer(id){
-            console.log(id);
-            console.log(this.answer.QuestionId, "question id, .,.,.,.,.,.,.,");
-            let payload = {
-                idAnswer : id,
-                idQuestion : this.answer.QuestionId
-            }
-            console.log("triggered button delete answer");
-            this.$store.dispatch('deleteAnswer', payload)
-        }
-    },
-    created(){
-        // console.log(this.answerQues, "ini answer quessssssss");
-        this.email = localStorage.email
-    },
-    computed : {
-        ...mapState(['upVoteAnswer', 'downVoteAnswer', 'answerQues'])
+  props: ['answer'],
+  data () {
+    return {
+      email: ''
     }
+  },
+  methods: {
+    upvoteanswer (value) {
+      console.log('kepencet upvote answer')
+
+      axios({
+        method: `PATCH`,
+        url: `/answers/upvote/${value._id}`,
+        headers: { token: localStorage.token }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          this.$store.dispatch('getAllAnswer', value.QuestionId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    downvoteanswer (id) {
+      console.log('kepencet downvote answer')
+
+      axios({
+        method: `PATCH`,
+        url: `/answers/downvote/${id}`,
+        headers: { token: localStorage.token }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          this.$store.dispatch('getOneAnswer', id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteAnswer (id) {
+      console.log(id)
+      console.log(this.answer.QuestionId, 'question id, .,.,.,.,.,.,.,')
+      let payload = {
+        idAnswer: id,
+        idQuestion: this.answer.QuestionId
+      }
+      console.log('triggered button delete answer')
+      this.$store.dispatch('deleteAnswer', payload)
+    }
+  },
+  created () {
+    // console.log(this.answerQues, "ini answer quessssssss");
+    this.email = localStorage.email
+  },
+  computed: {
+    ...mapState(['upVoteAnswer', 'downVoteAnswer', 'answerQues'])
+  }
 }
 </script>
 
@@ -101,7 +100,7 @@ export default {
     }
     .total-vote {
         text-align: center;
-        margin-top : 10px; 
+        margin-top : 10px;
     }
     .button-click {
         text-align: center;

@@ -22,7 +22,6 @@
         ></b-form-input>
       </b-form-group>
 
-
       <b-form-group
         id="birtday"
         label="Birthday:"

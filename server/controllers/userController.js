@@ -59,7 +59,7 @@ class UserController{
     static allUser(req, res, next){
         console.log("triggeredddddd");
         
-        User.find()
+        User.find({}).limit(30)
         .then(data => {
             res.status(200).json(data)
         })

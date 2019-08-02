@@ -89,156 +89,156 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import axios from "../config/axios.js";
-import listAnswer from "../components/listAnswer.vue";
+import { mapState } from 'vuex'
+import axios from '../config/axios.js'
+import listAnswer from '../components/listAnswer.vue'
 
 export default {
   components: {
     // wysiwyg
     listAnswer
   },
-  data() {
+  data () {
     return {
       detailquestion: {},
-      answertitle: "",
-      answerContent: "",
+      answertitle: '',
+      answerContent: '',
       error: false,
-      errorMsg: "",
-      email: "",
-      question : {
-        title : "",
-        description : "",
-        tags : ""
+      errorMsg: '',
+      email: '',
+      question: {
+        title: '',
+        description: '',
+        tags: ''
       }
-    };
+    }
   },
   methods: {
-    deleteQuestion(id) {
-      console.log(id, "ini id halo");
-      console.log("triggeredd delete");
+    deleteQuestion (id) {
+      console.log(id, 'ini id halo')
+      console.log('triggeredd delete')
 
       this.$store
-        .dispatch("deleteQuestion", id)
+        .dispatch('deleteQuestion', id)
         .then(data => {
-          console.log(data);
-          this.$router.push("/");
+          console.log(data)
+          this.$router.push('/')
           // alert('Success Delete!')
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    updateQuestion() {
+    updateQuestion () {
       let updateQuestion = {
         title: this.detailQuestion.title,
         question: this.detailQuestion.question,
         id: this.detailQuestion._id
-      };
-      console.log(updateQuestion, "ini update question");
+      }
+      console.log(updateQuestion, 'ini update question')
 
       this.$store
-        .dispatch("updateQuestion", updateQuestion)
-        this.$refs.modal.hide()
-        // .then(() => {
-        //   this.detailQuestion.title = "";
-        //   this.detailQuestion.question = "";
-        // })
-        // .catch(err => {
-        //   console.log(err);
-        // });
+        .dispatch('updateQuestion', updateQuestion)
+      this.$refs.modal.hide()
+      // .then(() => {
+      //   this.detailQuestion.title = "";
+      //   this.detailQuestion.question = "";
+      // })
+      // .catch(err => {
+      //   console.log(err);
+      // });
     },
-    patchUpdate(params) {
+    patchUpdate (params) {
       let payload = {
         id: this.detailQuestion._id,
         data: params
-      };
+      }
 
       this.$store
-        .dispatch("patchUpdate", payload)
+        .dispatch('patchUpdate', payload)
         .then(data => {
-          console.log("updated " + params);
+          console.log('updated ' + params)
           // console.log(data);
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    answer() {
+    answer () {
       let dataAnswer = {
         title: this.answertitle,
         content: this.answerContent,
         QuestionId: this.detailQuestion._id
-      };
-      this.$store.dispatch("answerQuestion", dataAnswer);
-      this.reset();
+      }
+      this.$store.dispatch('answerQuestion', dataAnswer)
+      this.reset()
     },
-    upvote() {
+    upvote () {
       if (!localStorage.token) {
-        this.error = true;
-        this.errorMsg = "Login first";
+        this.error = true
+        this.errorMsg = 'Login first'
       } else {
-        console.log("ke trigered upvote");
-        let id = this.$route.params.id;
+        console.log('ke trigered upvote')
+        let id = this.$route.params.id
         axios({
           method: `PATCH`,
           url: `questions/upvote/${id}`,
           headers: { token: localStorage.token }
         })
           .then(({ data }) => {
-            console.log(data, "upvote updated!");
-            this.$store.dispatch("getOneQuestion", id);
+            console.log(data, 'upvote updated!')
+            this.$store.dispatch('getOneQuestion', id)
           })
           .catch(err => {
-            console.log(err);
-          });
+            console.log(err)
+          })
       }
     },
-    downvote() {
+    downvote () {
       if (!localStorage.token) {
-        this.error = true;
-        this.errorMsg = "Login first";
+        this.error = true
+        this.errorMsg = 'Login first'
       } else {
-        console.log("ke trigered downvote");
-        let id = this.$route.params.id;
+        console.log('ke trigered downvote')
+        let id = this.$route.params.id
         axios({
           method: `PATCH`,
           url: `questions/downvote/${id}`,
           headers: { token: localStorage.token }
         })
           .then(({ data }) => {
-            console.log(data, "downvote updated!");
-            this.$store.dispatch("getOneQuestion", id);
+            console.log(data, 'downvote updated!')
+            this.$store.dispatch('getOneQuestion', id)
           })
           .catch(err => {
-            console.log(err);
-          });
+            console.log(err)
+          })
       }
     },
-    reset() {
-      this.answertitle = "";
-      this.answerContent = "";
+    reset () {
+      this.answertitle = ''
+      this.answerContent = ''
     }
   },
-  created() {
-    console.log(this.$route.params.id);
-    this.email = localStorage.email;
-    console.log(this.email);
+  created () {
+    console.log(this.$route.params.id)
+    this.email = localStorage.email
+    console.log(this.email)
 
-    let id = this.$route.params.id;
-    this.$store.dispatch("getOneQuestion", id);
-    this.$store.dispatch("getAllAnswer", id);
+    let id = this.$route.params.id
+    this.$store.dispatch('getOneQuestion', id)
+    this.$store.dispatch('getAllAnswer', id)
   },
   computed: {
     ...mapState([
-      "detailQuestion",
-      "questions",
-      "answersQuestion",
-      "upVote",
-      "downVote"
+      'detailQuestion',
+      'questions',
+      'answersQuestion',
+      'upVote',
+      'downVote'
     ])
   }
-};
+}
 </script>
 
 <style>

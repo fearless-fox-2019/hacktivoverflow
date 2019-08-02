@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import sidebar from "../components/sidebar.vue";
-import listQuestion from '../components/listQuestion.vue';
+import { mapState } from 'vuex'
+import sidebar from '../components/sidebar.vue'
+import listQuestion from '../components/listQuestion.vue'
 import axios from '../config/axios.js'
 
 export default {
@@ -53,33 +53,33 @@ export default {
     sidebar,
     listQuestion
   },
-  data(){
-      return {
-          keyword : "",
-          listQuestion : [],
-          isLoading : false
-      }
+  data () {
+    return {
+      keyword: '',
+      listQuestion: [],
+      isLoading: false
+    }
   },
   methods: {
-      searchTags(){
-          console.log("trigger searchtag method");
-          
-        isLoading : true
-        axios({
-            method : `GET`,
-            url : `questions?tags=${this.keyword}`
-        })
-        .then(({data}) => {
-            isLoading : false
-            console.log(data, "foundeddddd")
-            this.listQuestion = data
+    searchTags () {
+      console.log('trigger searchtag method')
+
+      isLoading : true
+      axios({
+        method: `GET`,
+        url: `questions?tags=${this.keyword}`
+      })
+        .then(({ data }) => {
+          isLoading : false
+          console.log(data, 'foundeddddd')
+          this.listQuestion = data
         })
         .catch(err => {
-            console.log(err);
+          console.log(err)
         })
     }
   }
-};
+}
 </script>
 
 <style>

@@ -24,23 +24,22 @@ export default {
   },
   data () {
     return {
-      user : "",
-      listQuestion : []
+      user: '',
+      listQuestion: []
     }
   },
-  methods : {
-    questionSearch(value){
+  methods: {
+    questionSearch (value) {
       this.listQuestion = value
     }
   },
   created () {
     if (localStorage.token) {
-      console.log(localStorage.email);
-      this.user=localStorage.email
+      console.log(localStorage.email)
+      this.user = localStorage.email
       this.$store.commit('setIsLogin', true)
     }
     console.log(this.isLogin)
-    
   },
   computed: {
     ...mapState(['isLogin'])

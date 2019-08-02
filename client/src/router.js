@@ -37,8 +37,8 @@ export default new Router({
       component: () => import('./views/questionPage.vue'),
       children: [
         {
-          path : 'ask',
-          component : () => import('./views/createQuestion.vue')
+          path: 'ask',
+          component: () => import('./views/createQuestion.vue')
         },
         {
           path: ':id',
@@ -55,20 +55,20 @@ export default new Router({
       ]
     },
     {
-      path:'/users',
-      name : 'users',
-      component : ()=> import('./views/userList.vue')
+      path: '/users',
+      name: 'users',
+      component: () => import('./views/userList.vue')
     },
     {
-      path : '/tags',
-      name : 'tags',
-      component : () => import('./views/tags.vue')
+      path: '/tags',
+      name: 'tags',
+      component: () => import('./views/tags.vue')
     },
     {
-      path : '/search',
-      name : 'search',
-      component : () => import('./views/searchPage.vue')
+      path: '/search',
+      name: 'search',
+      component: () => import('./views/searchPage.vue')
     }
-    
+
   ]
 })

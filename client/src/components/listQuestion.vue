@@ -5,7 +5,7 @@
             <router-link :to="`/question/${question._id}`"> <h5>{{question.title}}</h5> </router-link>
             <p>Description : </p>
             <p style="text-align:justify;">{{question.question}}</p>
-            Tags : 
+            Tags :
             <div class="tag">
                 <p v-for="(tag, index) in question.tags" :key="index" style="margin-right:10px;"> <router-link :to="`/tags/${tag}`">{{tag}}</router-link></p>
             </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    props : ['question']
+  props: ['question']
 
 }
 </script>

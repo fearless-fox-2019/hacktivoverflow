@@ -17,7 +17,7 @@
         <router-link to='/login'>Logout</router-link>
       </div>  -->
       <button v-if="isLogin === false" @click="toLoginPage">Login</button>
-      <button v-if="isLogin === true" @click="toLogout">Logout</button>  
+      <button v-if="isLogin === true" @click="toLogout">Logout</button>
     </b-navbar>
   </div>
 </template>
@@ -26,35 +26,35 @@
 import axios from '../config/axios.js'
 
 export default {
-  props : ['isLogin', 'user'],
-  data() {
+  props: ['isLogin', 'user'],
+  data () {
     return {
       // user : ""
-      keyword : ""
-    };
+      keyword: ''
+    }
   },
   methods: {
-    toLoginPage() {
-      this.$router.push("/login");
+    toLoginPage () {
+      this.$router.push('/login')
     },
-    toSignUpPage() {
-      this.$router.push("/signup");
+    toSignUpPage () {
+      this.$router.push('/signup')
     },
-    toLogout(){
+    toLogout () {
       localStorage.removeItem('token')
       localStorage.removeItem('email')
       this.$store.commit('setIsLogin', false)
       this.$router.push('/')
     },
-    searchQuestion(){
+    searchQuestion () {
       let keyword = this.keyword
-      console.log(keyword, "ini keywordddd cndjcjdcjds");
-      
+      console.log(keyword, 'ini keywordddd cndjcjdcjds')
+
       this.$store.dispatch('getAllQuestionsearch', keyword)
     }
   }
-  
-};
+
+}
 </script>
 
 <style>

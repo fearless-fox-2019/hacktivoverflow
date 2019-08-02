@@ -35,9 +35,9 @@ export default {
         password: this.user.password
       }
       this.$store.dispatch('login', user)
-        // .then(data => {
-        //   this.$router.push('/')
-        // })
+      // .then(data => {
+      //   this.$router.push('/')
+      // })
     }
   },
   created () {

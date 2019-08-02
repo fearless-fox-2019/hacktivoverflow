@@ -22,25 +22,25 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import sidebar from "../components/sidebar.vue";
-import listUser from "../components/listUser.vue"
+import { mapState } from 'vuex'
+import sidebar from '../components/sidebar.vue'
+import listUser from '../components/listUser.vue'
 
 export default {
   components: {
     sidebar,
     listUser
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
-  created() {
-    this.$store.dispatch("getAllUser");
+  created () {
+    this.$store.dispatch('getAllUser')
   },
   computed: {
-    ...mapState(["allUsers"])
+    ...mapState(['allUsers'])
   }
-};
+}
 </script>
 
 <style>

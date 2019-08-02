@@ -8,14 +8,14 @@
         </b-col>
         <b-col cols=7>
           <button @click="askQuestion" class="button-ask">Ask a question</button>
-          <list-question v-for="question in questions" :key="question._id" :question="question"/>          
+          <list-question v-for="question in questions" :key="question._id" :question="question"/>
           <!-- <h3>{{questions}}</h3> -->
           <!-- <h4 v-for="question in questions" :key="question._id"> <router-link :to="`/question/${question._id}`">{{question.title}}</router-link></h4> -->
         </b-col>
       </b-row>
     </b-container>
     <!-- show all questions -->
-  
+
   </div>
 </template>
 
@@ -27,7 +27,7 @@ import sidebar from '@/components/sidebar.vue'
 import listQuestion from '@/components/listQuestion.vue'
 
 export default {
-  
+
   name: 'home',
   components: {
     HelloWorld,
@@ -40,8 +40,8 @@ export default {
     }
   },
   methods: {
-    askQuestion(){
-      if(!localStorage.email){
+    askQuestion () {
+      if (!localStorage.email) {
         this.$router.push('/login')
       } else {
         this.$router.push('/question/ask')
@@ -77,9 +77,9 @@ export default {
   }
   .footer-home{
     bottom: 0;
-    margin-top: 30px; 
+    margin-top: 30px;
     position: relative;
-    background-color: #CD5334; 
+    background-color: #CD5334;
     height: 200px;
   }
 </style>
