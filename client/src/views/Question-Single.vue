@@ -16,9 +16,9 @@ import QuestionDetail from '../components/Question-Detail.vue';
 export default {
   components: {
     QuestionDetail,
-    SideBar
-  }
-}
+    SideBar,
+  },
+};
 </script>
 
 <style>

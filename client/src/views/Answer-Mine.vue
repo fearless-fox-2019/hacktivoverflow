@@ -4,6 +4,7 @@
       <side-bar></side-bar>
     </div>
     <div class="column is-9 fixnav">
+      <h1 style="font-size: 1.5em; font-weight: 600;">My Answer List</h1>
       <div v-if="userAnswers.length  == 0 || userAnswers === null"  class="display:flex; justify-content: center">
         <h1>You Haven't Post Any Answer</h1>
       </div>
@@ -15,23 +16,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import SideBar from '../components/Side-Bar.vue';
 import CardAnswerPersonal from '../components/Card-Answer-Personal.vue';
-import { mapState } from 'vuex';
 
 export default {
   created() {
-    this.$store.dispatch('getUserAnswers')
+    this.$store.dispatch('getUserAnswers');
   },
   components: {
     SideBar,
-    CardAnswerPersonal
+    CardAnswerPersonal,
   },
   computed: mapState({
-    userAnswers: state => state.useranswers
-  })
+    userAnswers: state => state.useranswers,
+  }),
 
-}
+};
 </script>
 
 <style>

@@ -12,9 +12,9 @@
 
 <script>
 // @ is an alias to /src
+import { mapState } from 'vuex';
 import SideBar from '../components/Side-Bar.vue';
 import Main from '../components/Main.vue';
-import { mapState } from 'vuex';
 
 export default {
   name: 'home',

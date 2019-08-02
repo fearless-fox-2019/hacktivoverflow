@@ -28,33 +28,33 @@
 import { mapState } from 'vuex';
 
 export default {
- data() {
+  data() {
     return {
       form: {
         answer: null,
       },
       config: {
         modules: {
-          toolbar: [ 
+          toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             ['blockquote', 'code-block'],
             [
-              { 'list': 'ordered'},
-              { 'list': 'bullet' }
+              { list: 'ordered' },
+              { list: 'bullet' },
             ],
-          ]
+          ],
         },
-      }
-    }
+      },
+    };
   },
   methods: {
     editAnswer() {
       const payload = {
         id: this.$route.params.id,
         answer: this.form.answer,
-      }
-      this.$store.dispatch('editAnswer', payload)
-    }
+      };
+      this.$store.dispatch('editAnswer', payload);
+    },
   },
   computed: {
     ...mapState({
@@ -62,7 +62,7 @@ export default {
       isLogin: state => state.isLogin,
     }),
   },
-}
+};
 </script>
 
 <style>

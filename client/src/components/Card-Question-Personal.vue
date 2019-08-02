@@ -47,10 +47,10 @@ export default {
   methods: {
     deleteQuestion(id) {
       console.log(id);
-      this.$store.dispatch('deleteQuestion', id)
-    }
+      this.$store.dispatch('deleteQuestion', id);
+    },
   },
-}
+};
 </script>
 
 <style>

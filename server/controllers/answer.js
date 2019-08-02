@@ -44,7 +44,6 @@ class ControllerAnswer {
   }
 
   static update(req, res, next) {
-    console.log('>>>>>', req.body);
     Answer.findById(req.params.id)
     .then((found) => {
       found.updatedAt = new Date()

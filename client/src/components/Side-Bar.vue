@@ -6,10 +6,10 @@
       </b-menu-list>
       <b-menu-list label="Menu">
         <router-link to="/">
-          <b-menu-item icon="information-outline" label="{ Kodeposit }" has-link="true"></b-menu-item>
+          <b-menu-item icon-pack="fas" icon="code" label="Kodeposit" has-link="true"></b-menu-item>
         </router-link>
 
-        <b-menu-item v-if="isLogin" icon="settings">
+        <b-menu-item v-if="isLogin" icon-pack="fas" icon="user" style="padding-left: .5em">
           <template slot="label" slot-scope="props">
               My Profile
               <b-icon
@@ -19,11 +19,11 @@
           </template>
           <router-link
             to="/my-question">
-            <b-menu-item icon="account" label="My Question" has-link="true"></b-menu-item>
+            <b-menu-item icon-pack="far" icon="comment-dots" label="My Question" has-link="true"></b-menu-item>
           </router-link>
           <router-link
             to="/my-answer">
-            <b-menu-item icon="cellphone-link" label="My Answer" has-link="true"></b-menu-item>
+            <b-menu-item icon-pack="far" icon="comment" label="My Answer" has-link="true"></b-menu-item>
           </router-link>
         </b-menu-item>
       </b-menu-list>
@@ -39,12 +39,8 @@
               <p>{{ad.title}}</p>
               <small>{{ad.location}} - <strong>{{ad.type}}</strong></small>
             </div>
-            <div class="btn-go" style="display: flex; justify-content: center">
-              <b-button 
-                type="is-primary"
-                rounded
-                style="font-weight:600"
-              >Visit</b-button>
+            <div style="display: flex; justify-content: center">
+              <span v-html="ad.how_to_apply" style="font-size: 0.75em"></span>
             </div>
           </div>
         </div>
@@ -55,13 +51,14 @@
 
 <script>
 import { mapState } from 'vuex';
+
 export default {
   computed: mapState({
     ads: state => state.ads,
     isLogin: state => state.isLogin,
-    loggedUser: state => state.loggedUser
-  })
-}
+    loggedUser: state => state.loggedUser,
+  }),
+};
 </script>
 
 

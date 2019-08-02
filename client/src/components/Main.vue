@@ -19,7 +19,7 @@
       <div class="questions" v-for="question in questions" :key="question._id">
         <question-card :question="question" ></question-card>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -30,16 +30,16 @@ import QuestionCard from './Card-Question-Main';
 export default {
   computed: mapState({
     isLogin: state => state.isLogin,
-    questions: state => state.questions
+    questions: state => state.questions,
   }),
   watch: {
     questions() {
-      this.questions
-    }
+      this.questions;
+    },
   },
   components: {
     QuestionCard,
-  }
+  },
 };
 </script>
 

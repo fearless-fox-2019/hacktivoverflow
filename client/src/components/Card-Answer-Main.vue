@@ -41,12 +41,12 @@ export default {
     vote(value, id) {
       const payload = {
         id,
-        value
-      }
-      this.$store.dispatch('voteAnswer', payload)
+        value,
+      };
+      this.$store.dispatch('voteAnswer', payload);
     },
-  }
-}
+  },
+};
 </script>
 
 <style>

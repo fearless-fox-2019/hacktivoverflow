@@ -47,27 +47,41 @@ export default new Router({
     {
       path: '/question/:id',
       name: 'question',
-      component: QuestionSingle
+      component: QuestionSingle,
     },
     {
       path: '/my-question',
       name: 'myquestion',
-      component: MyQuestion
+      component: MyQuestion,
+      // beforeEnter(to, from, next) {
+      //   if (localStorage.getItem('token')) {
+      //     next('/my-question');
+      //   } else {
+      //     next();
+      //   }
+      // },
     },
     {
       path: '/my-answer',
       name: 'myanswer',
-      component: MyAnswer
+      component: MyAnswer,
+      // beforeEnter(to, from, next) {
+      //   if (localStorage.getItem('token')) {
+      //     next('/my-answer');
+      //   } else {
+      //     next();
+      //   }
+      // },
     },
     {
       path: '/edit-question/:id',
       name: 'editquestion',
-      component: EditQuestion
+      component: EditQuestion,
     },
     {
       path: '/edit-answer/:id',
       name: 'editanswer',
-      component: EditAnswer
-    }
+      component: EditAnswer,
+    },
   ],
 });
