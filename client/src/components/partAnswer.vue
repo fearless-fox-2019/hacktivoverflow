@@ -28,7 +28,6 @@
                 </div>
             </div>
 
-            
         </div>
         <div v-if="edit" class="media-content" id="form-box">
             <form style="width: 900px; margin-left: 8%; padding-bottom: 40px; margin-top: 10px">
@@ -41,12 +40,12 @@
                         <wysiwyg v-model="answer.description" />
                     </p>
                     </div>
-                    
+
                     <div class="control is-pulled-right" id="form-btn">
                         <b-button @click="updateAnswer" class="is-small" type="is-info">Post Your Answer</b-button>
                         <b-button @click="cancel" class="is-small" type="is-info">Cancel</b-button>
                     </div>
- 
+
             </form>
         </div>
     </div>
@@ -57,64 +56,64 @@ import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
 
 export default {
-    name: 'part-answer',
-    props: ['answer'],
-    data(){
-        return {
-            statusvote:'',
-            edit: false,
+  name: 'part-answer',
+  props: ['answer'],
+  data () {
+    return {
+      statusvote: '',
+      edit: false
 
-        }
-    },
-    methods:{
-        ...mapActions(['updateAnswer']),
-
-        toEditAnswer(){
-            this.edit= true
-        },
-        cancel(){
-            this.edit= false
-        },
-        updateAnswer(){
-            this.edit= false
-            this.updateAnswer(this.answer)
-        },
-        checkUpvote(){
-            if(this.answer.upvotes.includes(this.loggedUser)){
-                this.statusvote='up'
-            }
-        },
-
-        checkDownvote(){
-            if(this.answer.downvotes.includes(this.loggedUser)){
-                this.statusvote='down'
-            }
-        },
-
-    },
-    computed:{
-        loggedUser(){
-            return localStorage.userId
-        },
-        upvotesAnswer(){
-            return this.answer.upvotes
-        },
-        downvotesAnswer(){
-            return this.answer.downvotes
-        },
-        time(){
-            return moment(this.answer.createdAt).fromNow()
-        }
-
-    },
-    watch:{
-        upvotesAnswer(val){
-            this.checkUpvote()
-        },
-        downvotesAnswer(val){
-            this.checkDownvote()
-        }
     }
+  },
+  methods: {
+    ...mapActions(['updateAnswer']),
+
+    toEditAnswer () {
+      this.edit = true
+    },
+    cancel () {
+      this.edit = false
+    },
+    updateAnswer () {
+      this.edit = false
+      this.updateAnswer(this.answer)
+    },
+    checkUpvote () {
+      if (this.answer.upvotes.includes(this.loggedUser)) {
+        this.statusvote = 'up'
+      }
+    },
+
+    checkDownvote () {
+      if (this.answer.downvotes.includes(this.loggedUser)) {
+        this.statusvote = 'down'
+      }
+    }
+
+  },
+  computed: {
+    loggedUser () {
+      return localStorage.userId
+    },
+    upvotesAnswer () {
+      return this.answer.upvotes
+    },
+    downvotesAnswer () {
+      return this.answer.downvotes
+    },
+    time () {
+      return moment(this.answer.createdAt).fromNow()
+    }
+
+  },
+  watch: {
+    upvotesAnswer (val) {
+      this.checkUpvote()
+    },
+    downvotesAnswer (val) {
+      this.checkDownvote()
+    }
+  }
 }
 </script>
 
@@ -122,7 +121,6 @@ export default {
     #answer-container{
         display: flex;
         justify-content: space-between;
-        
 
     }
     #form-btn{

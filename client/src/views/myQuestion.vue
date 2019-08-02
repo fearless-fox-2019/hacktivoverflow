@@ -32,36 +32,35 @@ import cardQuestion from '@/components/cardQuestion.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
-    name: 'myQuestion',
-    data(){
-        return {
-            keyword:''
-        }
-    },
-    components:{
-        navBar,
-        cardQuestion
-    },
-    methods:{
-        ...mapActions(['getMyQuestion'])
-    },
-    computed:{
-        ...mapState(['myQuestion']),
-
-        filterQuestion(){
-            let dataFilter= this.myQuestion.filter(el => {
-                    
-                    return el.title.toLowerCase().includes(this.keyword.toLowerCase())
-                })
-                // if(dataFilter.length === 0) return this.articles
-                //     else
-                     return dataFilter
-        }
-
-    },
-    created(){
-        this.getMyQuestion()
+  name: 'myQuestion',
+  data () {
+    return {
+      keyword: ''
     }
+  },
+  components: {
+    navBar,
+    cardQuestion
+  },
+  methods: {
+    ...mapActions(['getMyQuestion'])
+  },
+  computed: {
+    ...mapState(['myQuestion']),
+
+    filterQuestion () {
+      let dataFilter = this.myQuestion.filter(el => {
+        return el.title.toLowerCase().includes(this.keyword.toLowerCase())
+      })
+      // if(dataFilter.length === 0) return this.articles
+      //     else
+      return dataFilter
+    }
+
+  },
+  created () {
+    this.getMyQuestion()
+  }
 
 }
 </script>

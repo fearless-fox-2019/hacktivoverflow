@@ -14,9 +14,9 @@
                     <h5 id="title" @click="toDetail" class="title is-6 has-text-left">{{question.title}}</h5>
                     <div id="footer">
                         <div class="tags">
-                            <span v-for="(tag, index) in question.tags" 
+                            <span v-for="(tag, index) in question.tags"
                                 :key="index"
-                                @click.prevent="searchTag(tag)" 
+                                @click.prevent="searchTag(tag)"
                                 class="tag is-info">
                                 <a style="color: white">{{tag}}</a>
                             </span>
@@ -34,28 +34,28 @@ import moment from 'moment'
 import { mapActions } from 'vuex'
 
 export default {
-    name:'cardQuestio',
-    props:['question'],
-    data(){
-        return {
-            time:''
-        }
-    },
-    methods:{
-        ...mapActions(['getAllQuestion']),
-
-        toDetail(){
-            this.$router.push(`/detail/${this.question._id}`)
-        },
-        searchTag(tag){
-            console.log('ketrigger', tag)
-            this.$router.push('/home')
-            this.getAllQuestion('/questions?tag='+tag)
-        }
-    },
-    created(){
-        this.time= moment(this.question.createdAt).fromNow()
+  name: 'cardQuestio',
+  props: ['question'],
+  data () {
+    return {
+      time: ''
     }
+  },
+  methods: {
+    ...mapActions(['getAllQuestion']),
+
+    toDetail () {
+      this.$router.push(`/detail/${this.question._id}`)
+    },
+    searchTag (tag) {
+      console.log('ketrigger', tag)
+      this.$router.push('/home')
+      this.getAllQuestion('/questions?tag=' + tag)
+    }
+  },
+  created () {
+    this.time = moment(this.question.createdAt).fromNow()
+  }
 }
 </script>
 

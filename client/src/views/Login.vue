@@ -89,8 +89,8 @@ export default {
   data () {
     return {
       googleSignInParams: {
-        client_id:'917741793186-6b7nmc68c5eqbhnh11e2chc6m0d9gfd4.apps.googleusercontent.com'
-        
+        client_id: '917741793186-6b7nmc68c5eqbhnh11e2chc6m0d9gfd4.apps.googleusercontent.com'
+
       },
       page: 'login',
       user: {
@@ -162,7 +162,6 @@ export default {
         }
       })
         .then(({ data }) => {
-         
           this.user.email = ''
           this.user.password = ''
 
@@ -181,8 +180,8 @@ export default {
       console.log(error)
     }
   },
-  created(){
-    if(localStorage.token){
+  created () {
+    if (localStorage.token) {
       this.$router.push('/home')
     }
   }

@@ -17,27 +17,27 @@ import navBar from '@/components/navbarLogin.vue'
 import formQuestion from '@/components/formQuestion.vue'
 import { mapActions } from 'vuex'
 export default {
-    name:'addQuestion',
-    components:{
-        formQuestion,
-        navBar
-    },
-    data(){
-        return {
-            newQuestion:{
-                title:'',
-                description:'',
-                tags:[]
-            }
-        }
-    },
-    methods:{
-        ...mapActions(['createQuestion']),
-
-        sendQuestion(data){
-            this.createQuestion(data)
-        }
+  name: 'addQuestion',
+  components: {
+    formQuestion,
+    navBar
+  },
+  data () {
+    return {
+      newQuestion: {
+        title: '',
+        description: '',
+        tags: []
+      }
     }
+  },
+  methods: {
+    ...mapActions(['createQuestion']),
+
+    sendQuestion (data) {
+      this.createQuestion(data)
+    }
+  }
 }
 </script>
 

@@ -52,7 +52,7 @@ class answerController{
             title: req.body.title,
             description: req.body.description
         }
-        Answer.findByIdAndUpdate(req.params.id, updateValue)
+        Answer.findByIdAndUpdate(req.params.id, updateValue, {new: true})
         .then(answer=>{
             if(answer){
                 res.status(200).json(answer)
@@ -76,8 +76,8 @@ class answerController{
                     return Answer.findByIdAndUpdate(_id , {$pull : { upvotes: userId }},{new: true})
                 }else{
                     return Promise.all([
-                                Answer.findByIdAndUpdate(_id, {$addToSet : { upvotes: userId }}),
-                                Answer.findByIdAndUpdate(_id , {$pull : { downvotes: userId }})
+                                Answer.findByIdAndUpdate(_id, {$addToSet : { upvotes: userId }}, {new: true}),
+                                Answer.findByIdAndUpdate(_id , {$pull : { downvotes: userId }}, {new: true})
                             ])
                     
                 }
@@ -99,11 +99,11 @@ class answerController{
                 throw {code: 404, message: 'Answer not found!'}
             }else{
                 if(answer.downvotes.includes(userId)){
-                    return Answer.findByIdAndUpdate(_id , {$pull : { downvotes: userId }})
+                    return Answer.findByIdAndUpdate(_id , {$pull : { downvotes: userId }}, {new: true})
                 }else{
                     return Promise.all([
-                                Answer.findByIdAndUpdate(_id , {$addToSet : { downvotes: userId }}),
-                                Answer.findByIdAndUpdate(_id , {$pull : { upvotes: userId }})
+                                Answer.findByIdAndUpdate(_id , {$addToSet : { downvotes: userId }}, {new: true}),
+                                Answer.findByIdAndUpdate(_id , {$pull : { upvotes: userId }}, {new: true})
                             ])
                 }
             }

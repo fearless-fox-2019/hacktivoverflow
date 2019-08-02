@@ -22,7 +22,7 @@
                     </router-link>
                   </a>
                 </div>
-              </div> 
+              </div>
 
               <div class="navbar-end">
                 <div class="navbar-item">
@@ -43,7 +43,7 @@
 export default {
   name: 'navBar',
   methods: {
-    toHome(){
+    toHome () {
       this.$router.push('/home')
     },
     logout () {
@@ -56,12 +56,12 @@ export default {
         confirmButtonText: 'Yes!'
       }).then((result) => {
         if (result.value) {
-            localStorage.clear()
-            this.$router.push('/')
+          localStorage.clear()
+          this.$router.push('/')
           // sign out google
-          var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut()
-            .then(() =>{
+          var auth2 = gapi.auth2.getAuthInstance()
+          auth2.signOut()
+            .then(() => {
               localStorage.clear()
               this.$router.push('/')
             })

@@ -23,9 +23,9 @@
                     <article v-html="currentQuestion.description" class="media"></article>
                     <br>
                     <div class="tags">
-                        <span v-for="(tag, index) in currentQuestion.tags" 
+                        <span v-for="(tag, index) in currentQuestion.tags"
                             :key="index"
-                            @click.prevent="searchTag(tag)" 
+                            @click.prevent="searchTag(tag)"
                             class="tag is-info">
                             <a style="color: white">{{tag}}</a>
                         </span>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <formQuestion 
+                <formQuestion
                     v-if="edit === 'question'"
                     :question="currentQuestion"
                     @gotData="saveQuestion"
@@ -49,7 +49,7 @@
                 <!-- Answer Section -->
                 <article v-for="answer in currentQuestion.answers" :key="answer._id"  class="media" style="margin-top: -10px">
                     <partAnswer :answer="answer"></partAnswer>
-         
+
                 </article>
             </div>
         </article>
@@ -85,115 +85,113 @@ import formQuestion from '@/components/formQuestion.vue'
 import partAnswer from '@/components/partAnswer.vue'
 
 export default {
-    name: 'detailQuestion',
-    components:{
-        formQuestion,
-        partAnswer
+  name: 'detailQuestion',
+  components: {
+    formQuestion,
+    partAnswer
 
-    },
-    data(){
-        return {
-            edit:'',
-            statusvote:'',
-            loggedUser:"",
-            newAnswer:{
-                title:'',
-                description:''
-            }
-        }
-    },
-     
-    methods:{
-        ...mapActions(['getAllQuestion','getCurrentQuestion', 'createAnswer', 'deleteQuestion', 'updateQuestion']),
-
-        checkUpvote(){
-            if(this.currentQuestion.upvotes.includes(this.loggedUser)){
-                this.statusvote='up'
-            }
-        },
-
-        checkDownvote(){
-            if(this.currentQuestion.downvotes.includes(this.loggedUser)){
-                this.statusvote='down'
-            }
-        },
-
-        searchTag(tag){
-            console.log('ketrigger', tag)
-            this.$router.push('/home')
-            this.getAllQuestion('/questions?tag='+tag)
-        },
-
-        submitAnswer(){
-            let data={
-                title: this.newAnswer.title,
-                description: this.newAnswer.description,
-                questionId: this.currentQuestion._id
-            }
-
-            this.createAnswer(data)
-            this.newAnswer.title= ''
-            this.newAnswer.description= ''
-
-        },
-        toEditQuestion(){
-            this.edit= 'question'
-        },
-        toEditAnswer(){
-            this.edit= 'answer'
-        },
-        saveQuestion(data){
-            this.edit= '',
-            this.updateQuestion(data)
-        },
-        saveAnswer(data){
-            this.edit=''
-            console.log(data)
-        },
-        close(){
-            this.edit=''
-        },
-        removeQuestion(){
-            Swal.fire({
-                text: "Are you sure delete this question?",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sure!'
-            }).then((result) => {
-            if (result.value) {
-                this.deleteQuestion(this.currentQuestion._id)
-                }
-            })
-        }
-    },
-    computed:{
-        ...mapState(['currentQuestion']),
-        
-        upvotes(){
-            return this.currentQuestion.upvotes
-        },
-        downvotes(){
-            return this.currentQuestion.downvotes
-        },
-        questionTime(){
-           return moment(this.currentQuestion.createdAt).fromNow()
-        }
-    },
-    created(){
-        this.getCurrentQuestion()
-        this.loggedUser= localStorage.userId
-        
-    },
-    watch:{
-        upvotes(val){
-            this.checkUpvote()
-        },
-        downvotes(val){
-            this.checkDownvote()
-        }
+  },
+  data () {
+    return {
+      edit: '',
+      statusvote: '',
+      loggedUser: '',
+      newAnswer: {
+        title: '',
+        description: ''
+      }
     }
+  },
+
+  methods: {
+    ...mapActions(['getAllQuestion', 'getCurrentQuestion', 'createAnswer', 'deleteQuestion', 'updateQuestion']),
+
+    checkUpvote () {
+      if (this.currentQuestion.upvotes.includes(this.loggedUser)) {
+        this.statusvote = 'up'
+      }
+    },
+
+    checkDownvote () {
+      if (this.currentQuestion.downvotes.includes(this.loggedUser)) {
+        this.statusvote = 'down'
+      }
+    },
+
+    searchTag (tag) {
+      console.log('ketrigger', tag)
+      this.$router.push('/home')
+      this.getAllQuestion('/questions?tag=' + tag)
+    },
+
+    submitAnswer () {
+      let data = {
+        title: this.newAnswer.title,
+        description: this.newAnswer.description,
+        questionId: this.currentQuestion._id
+      }
+
+      this.createAnswer(data)
+      this.newAnswer.title = ''
+      this.newAnswer.description = ''
+    },
+    toEditQuestion () {
+      this.edit = 'question'
+    },
+    toEditAnswer () {
+      this.edit = 'answer'
+    },
+    saveQuestion (data) {
+      this.edit = '',
+      this.updateQuestion(data)
+    },
+    saveAnswer (data) {
+      this.edit = ''
+      console.log(data)
+    },
+    close () {
+      this.edit = ''
+    },
+    removeQuestion () {
+      Swal.fire({
+        text: 'Are you sure delete this question?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sure!'
+      }).then((result) => {
+        if (result.value) {
+          this.deleteQuestion(this.currentQuestion._id)
+        }
+      })
+    }
+  },
+  computed: {
+    ...mapState(['currentQuestion']),
+
+    upvotes () {
+      return this.currentQuestion.upvotes
+    },
+    downvotes () {
+      return this.currentQuestion.downvotes
+    },
+    questionTime () {
+      return moment(this.currentQuestion.createdAt).fromNow()
+    }
+  },
+  created () {
+    this.getCurrentQuestion()
+    this.loggedUser = localStorage.userId
+  },
+  watch: {
+    upvotes (val) {
+      this.checkUpvote()
+    },
+    downvotes (val) {
+      this.checkDownvote()
+    }
+  }
 }
 </script>
 

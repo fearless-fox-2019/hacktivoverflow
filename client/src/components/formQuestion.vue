@@ -25,17 +25,16 @@
 <script>
 
 export default {
-    name: 'formQuestion',
-    props: ['question'],
-    methods:{
-        sendData(){
-            
-            this.$emit('gotData', this.question)
-        },
-        cancel(){
-            this.$router.push('/home')
-        }
+  name: 'formQuestion',
+  props: ['question'],
+  methods: {
+    sendData () {
+      this.$emit('gotData', this.question)
+    },
+    cancel () {
+      this.$router.push('/home')
     }
+  }
 }
 </script>
 

@@ -146,12 +146,12 @@ class questionController{
                 throw {code: 404, message: 'Question not found'}
             }else{
                 if(question.upvotes.includes(userId)){
-                    return Question.findByIdAndUpdate(questionId , {$pull : { upvotes: userId }})
+                    return Question.findByIdAndUpdate(questionId , {$pull : { upvotes: userId }}, {new: true})
                 }else{
                     // console.log(question.upvotes)
                 return Promise.all([
-                        Question.findByIdAndUpdate(questionId, {$addToSet : { upvotes: userId }}),
-                        Question.findByIdAndUpdate(questionId , {$pull : { downvotes: userId }})
+                        Question.findByIdAndUpdate(questionId, {$addToSet : { upvotes: userId }}, {new: true}),
+                        Question.findByIdAndUpdate(questionId , {$pull : { downvotes: userId }}, {new: true})
                     ])
 
                 }
@@ -176,11 +176,11 @@ class questionController{
                 throw {code: 404, message: 'Question not found!'}
             }else{
                 if(question.downvotes.includes(userId)){
-                    return Question.findByIdAndUpdate(questionId , {$pull : { downvotes: userId }})
+                    return Question.findByIdAndUpdate(questionId , {$pull : { downvotes: userId }}, {new: true})
                 }else{
                     return Promise.all([
-                                Question.findByIdAndUpdate(questionId , {$addToSet : { downvotes: userId }}),
-                                Question.findByIdAndUpdate(questionId , {$pull : { upvotes: userId }})
+                                Question.findByIdAndUpdate(questionId , {$addToSet : { downvotes: userId }}, {new: true}),
+                                Question.findByIdAndUpdate(questionId , {$pull : { upvotes: userId }}, {new: true})
                             ])
 
                 }

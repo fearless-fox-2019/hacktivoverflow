@@ -50,7 +50,7 @@
       <!-- Row Content and user Tag -->
       <div class="columns container" style="margin-left: 5%">
         <div class="column">
-          
+
           <div class="box">
             <p class="title is-5 has-text-left">All Questions</p>
             <p v-if="allQuestion.length === 0" class="title is-6"> No Question!</p>
@@ -75,16 +75,16 @@
                 <div class="content" >
                   <div class="field" style="margin-bottom: -10px" >
                     <div v-if="editTag === 'no' " class="tags">
-                        <span v-for="(tag, index) in userTags" 
+                        <span v-for="(tag, index) in userTags"
                             :key="index"
-                            @click.prevent="searchTag(tag)" 
+                            @click.prevent="searchTag(tag)"
                             class="tag is-danger">
                             <a style="color: white">{{tag}}</a>
                         </span>
                     </div>
                   </div>
                     <div v-if="editTag === 'ok'">
-                      <b-taginput 
+                      <b-taginput
                         v-model="userTags"
                         ellipsis
                         icon="label"
@@ -98,7 +98,7 @@
                     </div>
 
                     </div>
-                    
+
                 </div>
               </div>
             </div>
@@ -118,50 +118,48 @@ export default {
     navBar,
     cardQuestion
   },
-  data(){
+  data () {
     return {
-      newTag:'',
-      keyword:'',
+      newTag: '',
+      keyword: '',
       editTag: 'no'
-
 
     }
   },
-  methods:{
-      ...mapActions(['getAllQuestion', 'getUser','updateUserTags', 'getMyQuestion', 'getMyAnswer']),
-      deleteTag(){
+  methods: {
+    ...mapActions(['getAllQuestion', 'getUser', 'updateUserTags', 'getMyQuestion', 'getMyAnswer']),
+    deleteTag () {
 
-      },
-      toAdd(){
-        this.$router.push('/post-question')
-      },
-      toMyQuestion(){
-        this.$router.push('/my-question')
-      },
-      searchQuestion(){
-        this.getAllQuestion('/questions?title='+this.keyword)
-      },
-      searchTag(tag){
-        console.log('masuk search tag', tag)
-        this.getAllQuestion('/questions?tag='+tag)
-      },
-      toEditTag(){
-        this.editTag= 'ok'
-      },
-      cancelEditTag(){
-        this.editTag= 'no'
-      },
-      updateTag(){
-        this.editTag='no'
-        this.updateUserTags(this.userTags)
-        
-      }
+    },
+    toAdd () {
+      this.$router.push('/post-question')
+    },
+    toMyQuestion () {
+      this.$router.push('/my-question')
+    },
+    searchQuestion () {
+      this.getAllQuestion('/questions?title=' + this.keyword)
+    },
+    searchTag (tag) {
+      console.log('masuk search tag', tag)
+      this.getAllQuestion('/questions?tag=' + tag)
+    },
+    toEditTag () {
+      this.editTag = 'ok'
+    },
+    cancelEditTag () {
+      this.editTag = 'no'
+    },
+    updateTag () {
+      this.editTag = 'no'
+      this.updateUserTags(this.userTags)
+    }
   },
-  computed:{
+  computed: {
     ...mapState(['userTags', 'allQuestion', 'myQuestion', 'myAnswer'])
 
   },
-  created(){
+  created () {
     this.getAllQuestion('/questions')
     this.getMyQuestion()
     this.getMyAnswer()
@@ -206,4 +204,3 @@ export default {
    color: lightseagreen
  }
 </style>
-

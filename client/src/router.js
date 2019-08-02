@@ -27,19 +27,19 @@ export default new Router({
       path: '/detail',
       name: 'detail',
       component: () => import(/* webpackChunkName: "about" */ './views/Detail.vue'),
-      children:[
+      children: [
         {
           path: ':questionId',
           name: 'detail-question',
-          component: () => import(/* webpackChunkName: "about" */ './components/detailQuestion.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './components/detailQuestion.vue')
         }
       ]
-    },{
-      
-        path: '/my-question',
-        name: 'my-question',
-        component: () => import(/* webpackChunkName: "about" */ './views/myQuestion.vue')
-      
+    }, {
+
+      path: '/my-question',
+      name: 'my-question',
+      component: () => import(/* webpackChunkName: "about" */ './views/myQuestion.vue')
+
     }
   ]
 })

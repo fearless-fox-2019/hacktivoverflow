@@ -20,13 +20,13 @@
 
 <script>
 export default {
-    name: 'formAnswer',
-    props:['answer'],
-    methods:{
-        sendData(){
-            this.$mit('gotData', this.answer)
-        }
+  name: 'formAnswer',
+  props: ['answer'],
+  methods: {
+    sendData () {
+      this.$mit('gotData', this.answer)
     }
+  }
 }
 </script>
 
